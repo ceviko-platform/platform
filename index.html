@@ -1,1 +1,77 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QuotePage</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><div class="app"><aside><div class="brand"><b>Q</b> QuotePage</div><button class="create" onclick="openM()">＋ Create proposal</button><nav><a class="active">⌂ Overview</a><a>▣ Documents <i>12</i></a><a>◫ Templates</a><a>◒ Analytics</a><a>↗ Activity</a></nav><div class="bottom">⚙ Settings<div class="profile"><span>AS</span><div><strong>Acme Studio</strong><small>Owner</small></div></div></div></aside><main><header><button class="menu" onclick="document.querySelector('aside').classList.toggle('open')">☰</button><span>Workspace / <b>Overview</b></span><em>AS</em></header><section><div class="hero"><div><label>MONDAY, AUG 12</label><h1>Good morning, Alex.</h1><p>Everything you need to turn a quote into a signed deal.</p></div><button class="primary" onclick="openM()">Create proposal ↗</button></div><div class="stats"><article>Open pipeline<strong>$24,820</strong><small>↑ 18.4% this month</small></article><article>Won revenue<strong>$10,640</strong><small>↑ 12.1% this month</small></article><article>Win rate<strong>42.6%</strong><small>↑ 5.2 pts</small></article><article>Avg. close time<strong>2.1d</strong><small>↓ 0.6d</small></article></div><div class="grid"><div class="card"><h2>Revenue pipeline</h2><p>Every active proposal, organized by deal stage.</p><div class="bars"><span style="height:46%">$7.4k<small>Draft</small></span><span style="height:62%">$8.1k<small>Sent</small></span><span style="height:42%">$5.2k<small>Viewed</small></span><span class="green" style="height:31%">$4.1k<small>Accepted</small></span></div></div><div class="card"><h2>Needs attention</h2><p>The next action for each open opportunity.</p><div class="deal"><b>North Studio</b><small>Viewed 15m ago</small><strong>$2,800</strong></div><div class="deal"><b>Green Market</b><small>Sent 2d ago</small><strong>$650/mo</strong></div><div class="deal"><b>John Smith</b><small>Accepted today</small><strong>$1,200</strong></div></div></div><div class="card"><h2>Recent proposals</h2><p>Track where every deal stands.</p><div class="table"><div>North Studio <span>$2,800</span><mark>Viewed</mark></div><div>Green Market <span>$650/mo</span><mark class="yellow">Sent</mark></div><div>John Smith <span>$1,200</span><mark class="greenpill">Accepted</mark></div></div></div></section></main></div><div id="modal"><div><button onclick="closeM()">×</button><label>NEW DOCUMENT</label><h2>Create a proposal</h2><p>Start from a polished template and send a client-ready quote in minutes.</p><input placeholder="Client or company name"><input placeholder="Proposal title"><footer><button onclick="closeM()">Cancel</button><button class="primary" onclick="closeM()">Create proposal →</button></footer></div></div><script>function openM(){modal.classList.add('show')}function closeM(){modal.classList.remove('show')}</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>QuotePage — Proposal Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<aside id="sidebar">
+  <div class="brand"><b>Q</b><span>QuotePage</span></div>
+  <button class="create" onclick="showBuilder()">＋ New proposal</button>
+  <nav>
+    <a onclick="go('overview')">⌂ <span>Overview</span></a>
+    <a class="active" onclick="go('builder')">▣ <span>Documents</span><i>12</i></a>
+    <a onclick="go('templates')">◫ <span>Templates</span></a>
+    <a onclick="go('clients')">◉ <span>Clients</span></a>
+    <a onclick="go('analytics')">◒ <span>Analytics</span></a>
+  </nav>
+  <div class="bottom">⚙ Settings<div class="profile"><span>AS</span><div><strong>Acme Studio</strong><small>Owner</small></div></div></div>
+</aside>
+<main>
+<header><button class="menu" onclick="toggleSide()">☰</button><span>Workspace / <b>Documents</b> / New proposal</span><em>AS</em></header>
+<section class="builder" id="builder">
+  <div class="topbar"><div><button class="back" onclick="go('overview')">←</button><div class="crumb"><label>PROPOSAL</label><h1>New proposal</h1><small>Draft · saved just now</small></div></div><div class="actions"><button class="ghost">Save draft</button><button class="dark" onclick="preview()">Preview ↗</button><button class="send" onclick="toast('Proposal is ready to send')">Send proposal →</button></div></div>
+  <div class="layout">
+    <div class="editor">
+      <div class="panel">
+        <div class="panelhead"><div><span class="step">01</span><div><h2>Client & project</h2><p>Who is this proposal for?</p></div></div><span class="done">✓</span></div>
+        <div class="fields two"><label>Client or company<input id="client" value="Acme Studio"></label><label>Contact email<input value="alex@acmestudio.com"></label></div>
+        <label>Proposal title<input id="title" value="Website redesign & development"></label>
+        <div class="fields two"><label>Timeline<select><option>4 weeks</option><option>6 weeks</option><option>8 weeks</option></select></label><label>Valid until<input value="Sep 12, 2026"></label></div>
+      </div>
+      <div class="panel">
+        <div class="panelhead"><div><span class="step">02</span><div><h2>Services & pricing</h2><p>Build the scope and price.</p></div></div><button class="add" onclick="addItem()">＋ Add item</button></div>
+        <div class="items" id="items">
+          <div class="item"><input value="Website design"><input class="qty" value="1"><input class="price" value="2400" oninput="calc()"><button onclick="removeItem(this)">×</button></div>
+          <div class="item"><input value="Development"><input class="qty" value="1"><input class="price" value="3600" oninput="calc()"><button onclick="removeItem(this)">×</button></div>
+          <div class="item"><input value="SEO setup"><input class="qty" value="1"><input class="price" value="800" oninput="calc()"><button onclick="removeItem(this)">×</button></div>
+        </div>
+        <div class="totals"><span>Subtotal</span><b id="subtotal">$6,800</b><span>Tax <small>(0%)</small></span><b>$0</b><strong>Total</strong><strong id="total">$6,800</strong></div>
+      </div>
+      <div class="panel">
+        <div class="panelhead"><div><span class="step">03</span><div><h2>Payment terms</h2><p>Choose how the client pays.</p></div></div></div>
+        <div class="payment"><label class="choice active"><input type="radio" name="pay" checked><span><b>50% upfront</b><small>$3,400 to start · $3,400 on completion</small></span></label><label class="choice"><input type="radio" name="pay"><span><b>100% upfront</b><small>$6,800 before work begins</small></span></label><label class="choice"><input type="radio" name="pay"><span><b>Custom</b><small>Set your own payment schedule</small></span></label></div>
+      </div>
+      <div class="panel">
+        <div class="panelhead"><div><span class="step">04</span><div><h2>Message to client</h2><p>Add a personal note.</p></div></div></div>
+        <textarea>Hi Alex — thanks for the opportunity. We’ve put together a focused plan to redesign your website and get it ready for launch in four weeks.</textarea>
+      </div>
+    </div>
+    <div class="previewCard">
+      <div class="previewtop"><span>LIVE PREVIEW</span><button onclick="preview()">Open full preview ↗</button></div>
+      <div class="paper" id="paper"><div class="paperbrand"><b>Q</b> QuotePage <span>PROPOSAL</span></div><p class="eyebrow">Prepared for</p><h2 id="pclient">Acme Studio</h2><h3 id="ptitle">Website redesign & development</h3><div class="meta"><span>Timeline<strong>4 weeks</strong></span><span>Valid until<strong>Sep 12, 2026</strong></span></div><hr><p class="eyebrow">Investment</p><div id="previewItems"></div><div class="previewtotal"><span>Total project</span><b id="ptotal">$6,800</b></div><div class="deposit"><span>Due to start</span><b>$3,400</b></div><button class="previewbtn">Accept proposal →</button><small class="secure">Secure checkout · Digital acceptance</small></div>
+    </div>
+  </div>
+</section>
+</main></div>
+<div id="toast"></div>
+<div id="fullPreview"><div class="modalbar"><button onclick="closePreview()">← Back to editor</button><button class="dark" onclick="toast('Share link copied')">Copy share link</button></div><div class="clientPage"><div class="clientPaper"><div class="paperbrand"><b>Q</b> QuotePage <span>PROPOSAL</span></div><p class="eyebrow">Prepared for</p><h1 id="fclient">Acme Studio</h1><h2 id="ftitle">Website redesign & development</h2><p class="lead">A focused four-week plan to create a faster, clearer and more conversion-ready website.</p><div class="clientgrid"><div><small>Timeline</small><b>4 weeks</b></div><div><small>Project total</small><b id="ftotal">$6,800</b></div></div><h3>Scope & investment</h3><div id="fullItems"></div><div class="grand"><span>Total</span><b id="grandtotal">$6,800</b></div><div class="accept"><h3>Ready to move forward?</h3><p>Accept the proposal and secure your project start date.</p><button onclick="toast('Demo: acceptance flow started')">Accept proposal →</button><small>By accepting, you agree to the proposal terms.</small></div></div></div></div>
+<script>
+const $=s=>document.querySelector(s); const money=n=>'$'+Number(n||0).toLocaleString('en-US');
+function toggleSide(){$('#sidebar').classList.toggle('open')}
+function go(id){ if(id==='overview'){location.reload();return} $('#sidebar').classList.remove('open'); window.scrollTo({top:0,behavior:'smooth'}); }
+function showBuilder(){window.scrollTo({top:0,behavior:'smooth'});}
+function addItem(){const d=document.createElement('div');d.className='item';d.innerHTML='<input value="New service"><input class="qty" value="1"><input class="price" value="0" oninput="calc()"><button onclick="removeItem(this)">×</button>';$('#items').appendChild(d);calc();d.querySelector('input').focus()}
+function removeItem(btn){btn.parentElement.remove();calc()}
+function calc(){let total=0;document.querySelectorAll('#items .item').forEach(x=>{total+=(parseFloat(x.querySelector('.qty').value)||1)*(parseFloat(x.querySelector('.price').value)||0)});$('#subtotal').textContent=money(total);$('#total').textContent=money(total);$('#ptotal').textContent=money(total);$('#ftotal').textContent=money(total);$('#grandtotal').textContent=money(total);const half=total/2;document.querySelector('.deposit b').textContent=money(half);renderItems()}
+function renderItems(){const arr=[...document.querySelectorAll('#items .item')].map(x=>({name:x.querySelector('input').value,qty:x.querySelector('.qty').value,price:(parseFloat(x.querySelector('.price').value)||0)}));$('#previewItems').innerHTML=arr.map(x=>`<div class="pitem"><span>${x.name}<small>${x.qty} × ${money(x.price)}</small></span><b>${money(x.price*Number(x.qty||1))}</b></div>`).join('');$('#fullItems').innerHTML=arr.map(x=>`<div class="fullitem"><span>${x.name}<small>${x.qty} × ${money(x.price)}</small></span><b>${money(x.price*Number(x.qty||1))}</b></div>`).join('')}
+function preview(){ $('#pclient').textContent=$('#client').value||'Client';$('#fclient').textContent=$('#client').value||'Client';$('#ptitle').textContent=$('#title').value||'Proposal';$('#ftitle').textContent=$('#title').value||'Proposal';calc();$('#fullPreview').classList.add('show') }
+function closePreview(){$('#fullPreview').classList.remove('show')}
+function toast(t){$('#toast').textContent=t;$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),2200)}
+document.querySelectorAll('.choice').forEach(c=>c.onclick=()=>{document.querySelectorAll('.choice').forEach(x=>x.classList.remove('active'));c.classList.add('active')});
+renderItems();calc();
+</script>
+</body></html>
