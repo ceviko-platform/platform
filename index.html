@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>QuotePage — Proposal Builder</title>
+<title>QuotePage — Sales workspace</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -10,68 +10,137 @@
 <div class="app">
 <aside id="sidebar">
   <div class="brand"><b>Q</b><span>QuotePage</span></div>
-  <button class="create" onclick="showBuilder()">＋ New proposal</button>
+  <button class="create" onclick="openBuilder()">＋ New proposal</button>
   <nav>
-    <a onclick="go('overview')">⌂ <span>Overview</span></a>
-    <a class="active" onclick="go('builder')">▣ <span>Documents</span><i>12</i></a>
-    <a onclick="go('templates')">◫ <span>Templates</span></a>
-    <a onclick="go('clients')">◉ <span>Clients</span></a>
-    <a onclick="go('analytics')">◒ <span>Analytics</span></a>
+    <button data-view="overview" onclick="go('overview')">⌂ <span>Overview</span></button>
+    <button data-view="documents" onclick="go('documents')">▣ <span>Documents</span><i>12</i></button>
+    <button data-view="templates" onclick="go('templates')">◫ <span>Templates</span></button>
+    <button data-view="clients" onclick="go('clients')">◉ <span>Clients</span></button>
+    <button data-view="analytics" onclick="go('analytics')">◒ <span>Analytics</span></button>
   </nav>
-  <div class="bottom">⚙ Settings<div class="profile"><span>AS</span><div><strong>Acme Studio</strong><small>Owner</small></div></div></div>
+  <div class="bottom">
+    <button class="settings-link" data-view="settings" onclick="go('settings')">⚙ <span>Settings</span></button>
+    <div class="profile"><span>AS</span><div><strong>Acme Studio</strong><small>Owner</small></div></div>
+  </div>
 </aside>
 <main>
-<header><button class="menu" onclick="toggleSide()">☰</button><span>Workspace / <b>Documents</b> / New proposal</span><em>AS</em></header>
-<section class="builder" id="builder">
-  <div class="topbar"><div><button class="back" onclick="go('overview')">←</button><div class="crumb"><label>PROPOSAL</label><h1>New proposal</h1><small>Draft · saved just now</small></div></div><div class="actions"><button class="ghost">Save draft</button><button class="dark" onclick="preview()">Preview ↗</button><button class="send" onclick="toast('Proposal is ready to send')">Send proposal →</button></div></div>
-  <div class="layout">
-    <div class="editor">
-      <div class="panel">
-        <div class="panelhead"><div><span class="step">01</span><div><h2>Client & project</h2><p>Who is this proposal for?</p></div></div><span class="done">✓</span></div>
-        <div class="fields two"><label>Client or company<input id="client" value="Acme Studio"></label><label>Contact email<input value="alex@acmestudio.com"></label></div>
-        <label>Proposal title<input id="title" value="Website redesign & development"></label>
-        <div class="fields two"><label>Timeline<select><option>4 weeks</option><option>6 weeks</option><option>8 weeks</option></select></label><label>Valid until<input value="Sep 12, 2026"></label></div>
-      </div>
-      <div class="panel">
-        <div class="panelhead"><div><span class="step">02</span><div><h2>Services & pricing</h2><p>Build the scope and price.</p></div></div><button class="add" onclick="addItem()">＋ Add item</button></div>
-        <div class="items" id="items">
-          <div class="item"><input value="Website design"><input class="qty" value="1"><input class="price" value="2400" oninput="calc()"><button onclick="removeItem(this)">×</button></div>
-          <div class="item"><input value="Development"><input class="qty" value="1"><input class="price" value="3600" oninput="calc()"><button onclick="removeItem(this)">×</button></div>
-          <div class="item"><input value="SEO setup"><input class="qty" value="1"><input class="price" value="800" oninput="calc()"><button onclick="removeItem(this)">×</button></div>
-        </div>
-        <div class="totals"><span>Subtotal</span><b id="subtotal">$6,800</b><span>Tax <small>(0%)</small></span><b>$0</b><strong>Total</strong><strong id="total">$6,800</strong></div>
-      </div>
-      <div class="panel">
-        <div class="panelhead"><div><span class="step">03</span><div><h2>Payment terms</h2><p>Choose how the client pays.</p></div></div></div>
-        <div class="payment"><label class="choice active"><input type="radio" name="pay" checked><span><b>50% upfront</b><small>$3,400 to start · $3,400 on completion</small></span></label><label class="choice"><input type="radio" name="pay"><span><b>100% upfront</b><small>$6,800 before work begins</small></span></label><label class="choice"><input type="radio" name="pay"><span><b>Custom</b><small>Set your own payment schedule</small></span></label></div>
-      </div>
-      <div class="panel">
-        <div class="panelhead"><div><span class="step">04</span><div><h2>Message to client</h2><p>Add a personal note.</p></div></div></div>
-        <textarea>Hi Alex — thanks for the opportunity. We’ve put together a focused plan to redesign your website and get it ready for launch in four weeks.</textarea>
-      </div>
-    </div>
-    <div class="previewCard">
-      <div class="previewtop"><span>LIVE PREVIEW</span><button onclick="preview()">Open full preview ↗</button></div>
-      <div class="paper" id="paper"><div class="paperbrand"><b>Q</b> QuotePage <span>PROPOSAL</span></div><p class="eyebrow">Prepared for</p><h2 id="pclient">Acme Studio</h2><h3 id="ptitle">Website redesign & development</h3><div class="meta"><span>Timeline<strong>4 weeks</strong></span><span>Valid until<strong>Sep 12, 2026</strong></span></div><hr><p class="eyebrow">Investment</p><div id="previewItems"></div><div class="previewtotal"><span>Total project</span><b id="ptotal">$6,800</b></div><div class="deposit"><span>Due to start</span><b>$3,400</b></div><button class="previewbtn">Accept proposal →</button><small class="secure">Secure checkout · Digital acceptance</small></div>
+<header><button class="menu" onclick="toggleSide()">☰</button><span>Workspace / <b id="crumb">Overview</b></span><button class="avatar" onclick="go('settings')">AS</button></header>
+
+<!-- OVERVIEW -->
+<section class="view" id="view-overview">
+  <div class="hero"><div><label>MONDAY · AUG 12</label><h1>Good morning, Alex.</h1><p>Everything you need to turn a quote into a signed deal.</p></div><button class="dark big" onclick="openBuilder()">Create proposal ↗</button></div>
+  <div class="stats">
+    <div class="stat"><span>Open pipeline</span><b>$24,820</b><em>↑ 18.4% this month</em></div>
+    <div class="stat"><span>Won revenue</span><b>$10,640</b><em>↑ 12.1% this month</em></div>
+    <div class="stat"><span>Win rate</span><b>42.6%</b><em>↑ 5.2 pts</em></div>
+    <div class="stat"><span>Avg. close time</span><b>2.1d</b><em>↓ 0.6d</em></div>
+  </div>
+  <div class="dashgrid">
+    <div class="panel pipeline"><div class="panelhead"><div><h2>Revenue pipeline</h2><p>Every active proposal, organized by deal stage.</p></div><button class="linkbtn" onclick="go('documents')">View all →</button></div><div class="stages"><div><small>Draft</small><b>$4.2k</b><span>3</span></div><div><small>Sent</small><b>$7.4k</b><span>4</span></div><div><small>Viewed</small><b>$8.1k</b><span>3</span></div><div class="hot"><small>Negotiating</small><b>$5.2k</b><span>2</span></div><div class="won"><small>Won</small><b>$10.6k</b><span>6</span></div></div></div>
+    <div class="panel attention"><div class="panelhead"><div><h2>Needs attention</h2><p>Next actions for active opportunities.</p></div></div>
+      <button class="attentionrow" onclick="openDoc('North Studio')"><span class="dot amber"></span><span><b>North Studio</b><small>Viewed 5× · 41 min ago</small></span><strong>$2,800</strong></button>
+      <button class="attentionrow" onclick="openDoc('Green Market')"><span class="dot blue"></span><span><b>Green Market</b><small>Sent 2d ago · not viewed</small></span><strong>$650/mo</strong></button>
+      <button class="attentionrow" onclick="openDoc('John Smith')"><span class="dot green"></span><span><b>John Smith</b><small>Accepted today</small></span><strong>$1,200</strong></button>
     </div>
   </div>
+  <div class="panel recent"><div class="panelhead"><div><h2>Recent proposals</h2><p>Your latest documents and client activity.</p></div><button class="linkbtn" onclick="go('documents')">View documents →</button></div><div id="recentRows"></div></div>
+</section>
+
+<!-- DOCUMENTS -->
+<section class="view hidden" id="view-documents">
+  <div class="pagehead"><div><label>WORKSPACE</label><h1>Documents</h1><p>Create, send and track every proposal from one place.</p></div><button class="dark" onclick="openBuilder()">＋ New proposal</button></div>
+  <div class="toolbar"><div class="search">⌕<input id="docSearch" placeholder="Search documents" oninput="renderDocuments()"></div><select id="docFilter" onchange="renderDocuments()"><option value="all">All statuses</option><option value="draft">Draft</option><option value="sent">Sent</option><option value="viewed">Viewed</option><option value="negotiating">Negotiating</option><option value="accepted">Accepted</option></select></div>
+  <div class="panel tablepanel"><div class="tablehead"><span>Proposal</span><span>Client</span><span>Amount</span><span>Status</span><span>Updated</span><span></span></div><div id="docRows"></div></div>
+</section>
+
+<!-- TEMPLATES -->
+<section class="view hidden" id="view-templates">
+  <div class="pagehead"><div><label>LIBRARY</label><h1>Templates</h1><p>Start faster with polished proposal structures.</p></div><button class="dark" onclick="toast('Template creation is coming next')">＋ New template</button></div>
+  <div class="templategrid">
+    <button class="templatecard" onclick="useTemplate('Website redesign')"><div class="thumb blueprint"><b>Q</b><span>Website redesign</span><strong>$6,800</strong></div><h3>Website redesign</h3><p>Design, development, SEO and launch.</p><small>Used 18 times</small></button>
+    <button class="templatecard" onclick="useTemplate('Brand identity')"><div class="thumb brand"><b>BRAND</b><span>Identity system</span><strong>$4,200</strong></div><h3>Brand identity</h3><p>Strategy, visual identity and guidelines.</p><small>Used 11 times</small></button>
+    <button class="templatecard" onclick="useTemplate('Marketing retainer')"><div class="thumb marketing"><b>MONTHLY</b><span>Growth retainer</span><strong>$1,800/mo</strong></div><h3>Marketing retainer</h3><p>Monthly content, campaigns and reporting.</p><small>Used 9 times</small></button>
+    <button class="templatecard dashed" onclick="toast('Create your first custom template')"><div class="plus">＋</div><h3>Create custom</h3><p>Save your best proposal structure for later.</p></button>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="view hidden" id="view-clients">
+  <div class="pagehead"><div><label>RELATIONSHIPS</label><h1>Clients</h1><p>Keep contacts, deal history and proposal activity together.</p></div><button class="dark" onclick="toast('Client creation is ready for the next backend step')">＋ Add client</button></div>
+  <div class="clientstats"><div><b>24</b><span>Total clients</span></div><div><b>8</b><span>Active deals</span></div><div><b>$38.4k</b><span>Pipeline value</span></div></div>
+  <div class="panel clientlist" id="clientList"></div>
+</section>
+
+<!-- ANALYTICS -->
+<section class="view hidden" id="view-analytics">
+  <div class="pagehead"><div><label>PERFORMANCE</label><h1>Analytics</h1><p>Understand where proposals convert and where deals stall.</p></div><select class="period"><option>Last 30 days</option><option>Last 90 days</option><option>This year</option></select></div>
+  <div class="stats"><div class="stat"><span>Sent proposals</span><b>31</b><em>↑ 14% vs previous</em></div><div class="stat"><span>Viewed</span><b>24</b><em>77.4% view rate</em></div><div class="stat"><span>Accepted</span><b>13</b><em>42.6% win rate</em></div><div class="stat"><span>Revenue won</span><b>$10.6k</b><em>↑ 12.1%</em></div></div>
+  <div class="dashgrid"><div class="panel chartpanel"><div class="panelhead"><div><h2>Proposal activity</h2><p>Views and acceptances over the last 30 days.</p></div></div><div class="chart"><div class="gridline one"></div><div class="gridline two"></div><div class="bars" id="bars"></div></div><div class="chartlegend"><span><i class="legendview"></i>Views</span><span><i class="legendaccept"></i>Accepted</span></div></div><div class="panel funnel"><div class="panelhead"><div><h2>Conversion funnel</h2><p>Where opportunities move forward.</p></div></div><div class="funnelrow"><span>Sent</span><b>31</b><div><i style="width:100%"></i></div></div><div class="funnelrow"><span>Viewed</span><b>24</b><div><i style="width:77%"></i></div></div><div class="funnelrow"><span>Negotiating</span><b>15</b><div><i style="width:48%"></i></div></div><div class="funnelrow"><span>Accepted</span><b>13</b><div><i style="width:42%"></i></div></div></div></div>
+</section>
+
+<!-- SETTINGS -->
+<section class="view hidden" id="view-settings">
+  <div class="pagehead"><div><label>WORKSPACE</label><h1>Settings</h1><p>Control your workspace, brand and proposal defaults.</p></div></div>
+  <div class="settingsgrid"><div class="panel settingpanel"><h2>Workspace profile</h2><p>Shown on client-facing proposals.</p><label>Company name<input value="Acme Studio"></label><label>Business email<input value="hello@acmestudio.com"></label><label>Proposal URL<input value="quotepage.com/acme"></label><button class="dark" onclick="toast('Settings saved')">Save changes</button></div><div class="panel settingpanel"><h2>Proposal defaults</h2><p>Save time when creating a new document.</p><label>Default validity<select><option>30 days</option><option>14 days</option><option>60 days</option></select></label><label>Default payment<select><option>50% upfront / 50% completion</option><option>100% upfront</option></select></label><label>Accent style<select><option>QuotePage Blue</option><option>Monochrome</option></select></label><button class="outline" onclick="toast('Default preferences saved')">Save defaults</button></div></div>
+</section>
+
+<!-- BUILDER -->
+<section class="view hidden" id="view-builder">
+  <div class="topbar"><div><button class="back" onclick="go('documents')">←</button><div class="crumb"><label>PROPOSAL</label><h1>New proposal</h1><small id="saveState">Draft · saved just now</small></div></div><div class="actions"><button class="ghost" onclick="saveDraft()">Save draft</button><button class="dark" onclick="preview()">Preview ↗</button><button class="send" onclick="sendProposal()">Send proposal →</button></div></div>
+  <div class="layout"><div class="editor">
+    <div class="panel"><div class="panelhead"><div><span class="step">01</span><div><h2>Client & project</h2><p>Who is this proposal for?</p></div></div><span class="done">✓</span></div>
+      <div class="fields two"><label>Client or company<input id="client" value="Acme Studio" oninput="syncPreview()"></label><label>Contact email<input id="email" value="alex@acmestudio.com"></label></div><label>Proposal title<input id="title" value="Website redesign & development" oninput="syncPreview()"></label>
+      <div class="fields two"><label>Timeline<select id="timeline" onchange="syncPreview()"><option>4 weeks</option><option>6 weeks</option><option>8 weeks</option></select></label><label>Valid until<input id="valid" value="Sep 12, 2026" oninput="syncPreview()"></label></div>
+    </div>
+    <div class="panel"><div class="panelhead"><div><span class="step">02</span><div><h2>Services & pricing</h2><p>Build the scope and price.</p></div></div><button class="add" onclick="addItem()">＋ Add item</button></div>
+      <div class="items" id="items"><div class="item"><input value="Website design" oninput="calc()"><input class="qty" value="1" oninput="calc()"><input class="price" value="2400" oninput="calc()"><button onclick="removeItem(this)">×</button></div><div class="item"><input value="Development" oninput="calc()"><input class="qty" value="1" oninput="calc()"><input class="price" value="3600" oninput="calc()"><button onclick="removeItem(this)">×</button></div><div class="item"><input value="SEO setup" oninput="calc()"><input class="qty" value="1" oninput="calc()"><input class="price" value="800" oninput="calc()"><button onclick="removeItem(this)">×</button></div></div>
+      <div class="totals"><span>Subtotal</span><b id="subtotal">$6,800</b><span>Tax <small>(0%)</small></span><b>$0</b><strong>Total</strong><strong id="total">$6,800</strong></div>
+    </div>
+    <div class="panel"><div class="panelhead"><div><span class="step">03</span><div><h2>Payment terms</h2><p>Choose how the client pays.</p></div></div></div><div class="payment"><label class="choice active"><input type="radio" name="pay" value="half" checked onchange="paymentChanged()"><span><b>50% upfront</b><small><span id="half1">$3,400</span> to start · <span id="half2">$3,400</span> on completion</small></span></label><label class="choice"><input type="radio" name="pay" value="full" onchange="paymentChanged()"><span><b>100% upfront</b><small><span id="fullpay">$6,800</span> before work begins</small></span></label><label class="choice"><input type="radio" name="pay" value="custom" onchange="paymentChanged()"><span><b>Custom</b><small>Set your own payment schedule</small></span></label></div></div>
+    <div class="panel"><div class="panelhead"><div><span class="step">04</span><div><h2>Message to client</h2><p>Add a personal note.</p></div></div></div><textarea id="message">Hi Alex — thanks for the opportunity. We’ve put together a focused plan to redesign your website and get it ready for launch in four weeks.</textarea></div>
+  </div>
+  <div class="previewCard"><div class="previewtop"><span>LIVE PREVIEW</span><button onclick="preview()">Open full preview ↗</button></div><div class="paper" id="paper"><div class="paperbrand"><b>Q</b> QuotePage <span>PROPOSAL</span></div><p class="eyebrow">Prepared for</p><h2 id="pclient">Acme Studio</h2><h3 id="ptitle">Website redesign & development</h3><div class="meta"><span>Timeline<strong id="ptimeline">4 weeks</strong></span><span>Valid until<strong id="pvalid">Sep 12, 2026</strong></span></div><hr><p class="eyebrow">Investment</p><div id="previewItems"></div><div class="previewtotal"><span>Total project</span><b id="ptotal">$6,800</b></div><div class="deposit"><span id="depositLabel">Due to start</span><b id="deposit">$3,400</b></div><button class="previewbtn" onclick="preview()">View client experience →</button><small class="secure">Secure acceptance · Shareable proposal link</small></div></div></div>
 </section>
 </main></div>
+
+<div id="fullPreview"><div class="modalbar"><button onclick="closePreview()">← Back to editor</button><div><button class="outline" onclick="toast('Share link copied')">Copy share link</button><button class="dark" onclick="acceptDemo()">Accept as client</button></div></div><div class="clientPage"><div class="clientPaper"><div class="paperbrand"><b>Q</b> QuotePage <span>PROPOSAL</span></div><p class="eyebrow">Prepared for</p><h1 id="fclient">Acme Studio</h1><h2 id="ftitle">Website redesign & development</h2><p class="lead" id="fmessage">A focused four-week plan to create a faster, clearer and more conversion-ready website.</p><div class="clientgrid"><div><small>Timeline</small><b id="ftimeline">4 weeks</b></div><div><small>Project total</small><b id="ftotal">$6,800</b></div></div><h3>Scope & investment</h3><div id="fullItems"></div><div class="grand"><span>Total</span><b id="grandtotal">$6,800</b></div><div class="accept"><h3>Ready to move forward?</h3><p>Accept the proposal and secure your project start date.</p><button onclick="acceptDemo()">Accept proposal →</button><small>By accepting, you agree to the proposal terms.</small></div></div></div></div>
 <div id="toast"></div>
-<div id="fullPreview"><div class="modalbar"><button onclick="closePreview()">← Back to editor</button><button class="dark" onclick="toast('Share link copied')">Copy share link</button></div><div class="clientPage"><div class="clientPaper"><div class="paperbrand"><b>Q</b> QuotePage <span>PROPOSAL</span></div><p class="eyebrow">Prepared for</p><h1 id="fclient">Acme Studio</h1><h2 id="ftitle">Website redesign & development</h2><p class="lead">A focused four-week plan to create a faster, clearer and more conversion-ready website.</p><div class="clientgrid"><div><small>Timeline</small><b>4 weeks</b></div><div><small>Project total</small><b id="ftotal">$6,800</b></div></div><h3>Scope & investment</h3><div id="fullItems"></div><div class="grand"><span>Total</span><b id="grandtotal">$6,800</b></div><div class="accept"><h3>Ready to move forward?</h3><p>Accept the proposal and secure your project start date.</p><button onclick="toast('Demo: acceptance flow started')">Accept proposal →</button><small>By accepting, you agree to the proposal terms.</small></div></div></div></div>
 <script>
-const $=s=>document.querySelector(s); const money=n=>'$'+Number(n||0).toLocaleString('en-US');
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)], money=n=>'$'+Number(n||0).toLocaleString('en-US',{maximumFractionDigits:2});
+const docs=[
+ {name:'Website redesign & development',client:'Acme Studio',amount:6800,status:'negotiating',updated:'12 min ago'},
+ {name:'Brand identity package',client:'North Studio',amount:2800,status:'viewed',updated:'41 min ago'},
+ {name:'Growth marketing retainer',client:'Green Market',amount:650,status:'sent',updated:'2 days ago',monthly:true},
+ {name:'Landing page sprint',client:'John Smith',amount:1200,status:'accepted',updated:'Today'},
+ {name:'E-commerce UX audit',client:'Nova Labs',amount:3400,status:'draft',updated:'Yesterday'},
+ {name:'Product design sprint',client:'Mosaic Co',amount:5200,status:'sent',updated:'3 days ago'},
+ {name:'SEO & content plan',client:'Brightline',amount:1900,status:'viewed',updated:'4 days ago'},
+ {name:'Webflow build',client:'Luma Works',amount:4200,status:'accepted',updated:'Aug 8'}
+];
+const clients=[['Acme Studio','alex@acmestudio.com','$6,800','3 proposals'],['North Studio','hello@north.studio','$2,800','2 proposals'],['Green Market','team@greenmarket.co','$650/mo','4 proposals'],['John Smith','john@smith.co','$1,200','1 proposal'],['Nova Labs','ops@novalabs.io','$3,400','2 proposals']];
 function toggleSide(){$('#sidebar').classList.toggle('open')}
-function go(id){ if(id==='overview'){location.reload();return} $('#sidebar').classList.remove('open'); window.scrollTo({top:0,behavior:'smooth'}); }
-function showBuilder(){window.scrollTo({top:0,behavior:'smooth'});}
-function addItem(){const d=document.createElement('div');d.className='item';d.innerHTML='<input value="New service"><input class="qty" value="1"><input class="price" value="0" oninput="calc()"><button onclick="removeItem(this)">×</button>';$('#items').appendChild(d);calc();d.querySelector('input').focus()}
+function go(view){$$('.view').forEach(x=>x.classList.add('hidden'));$('#view-'+view).classList.remove('hidden');$$('nav button,.settings-link').forEach(x=>x.classList.toggle('active',x.dataset.view===view));$('#crumb').textContent=view[0].toUpperCase()+view.slice(1);$('#sidebar').classList.remove('open');window.scrollTo({top:0,behavior:'smooth'});if(view==='documents')renderDocuments()}
+function openBuilder(){go('builder');syncPreview();}
+function renderRecent(){const r=$('#recentRows');r.innerHTML=docs.slice(0,5).map(d=>`<button class="recentrow" onclick="openDoc('${d.client}')"><span><b>${d.name}</b><small>${d.client} · ${d.updated}</small></span><strong>${money(d.amount)}${d.monthly?'/mo':''}</strong><em class="status ${d.status}">${d.status}</em></button>`).join('')}
+function renderDocuments(){const q=($('#docSearch')?.value||'').toLowerCase(), f=$('#docFilter')?.value||'all';const arr=docs.filter(d=>(f==='all'||d.status===f)&&(`${d.name} ${d.client}`).toLowerCase().includes(q));$('#docRows').innerHTML=arr.map(d=>`<button class="tablerow" onclick="openDoc('${d.client}')"><span><b>${d.name}</b><small>${d.client}</small></span><span>${d.client}</span><span><b>${money(d.amount)}${d.monthly?'/mo':''}</b></span><span><em class="status ${d.status}">${d.status}</em></span><span>${d.updated}</span><span>→</span></button>`).join('')||'<div class="empty">No proposals match your search.</div>'}
+function renderClients(){$('#clientList').innerHTML='<div class="clienthead"><span>Client</span><span>Contact</span><span>Latest proposal</span><span>History</span><span></span></div>'+clients.map(c=>`<button class="clientrow" onclick="openDoc('${c[0]}')"><span class="clientname"><i>${c[0].slice(0,1)}</i><b>${c[0]}</b></span><span>${c[1]}</span><span><b>${c[2]}</b></span><span>${c[3]}</span><span>→</span></button>`).join('')}
+function renderBars(){const values=[8,11,9,15,13,18,16,22,19,25,23,28];$('#bars').innerHTML=values.map((v,i)=>`<div class="barset"><i style="height:${v*3}px"></i><b style="height:${Math.max(5,v*.8)}px"></b></div>`).join('')}
+function openDoc(client){const d=docs.find(x=>x.client===client);if(!d){toast('Client profile opened');return}openBuilder();$('#client').value=d.client;$('#title').value=d.name;const prices=$$('#items .price');if(prices[0])prices[0].value=d.amount;$$('#items .item').slice(1).forEach(x=>x.remove());calc();toast(d.name+' loaded into editor')}
+function useTemplate(name){openBuilder();$('#title').value=name;$('#client').value='New client';if(name==='Brand identity'){$$('#items .item')[0].querySelector('input').value='Brand strategy';$$('#items .item')[0].querySelector('.price').value='1800';}else if(name==='Marketing retainer'){$$('#items .item')[0].querySelector('input').value='Monthly growth retainer';$$('#items .item')[0].querySelector('.price').value='1800';}calc();syncPreview();toast(name+' template loaded')}
+function addItem(){const d=document.createElement('div');d.className='item';d.innerHTML='<input value="New service" oninput="calc()"><input class="qty" value="1" oninput="calc()"><input class="price" value="0" oninput="calc()"><button onclick="removeItem(this)">×</button>';$('#items').appendChild(d);calc();d.querySelector('input').focus()}
 function removeItem(btn){btn.parentElement.remove();calc()}
-function calc(){let total=0;document.querySelectorAll('#items .item').forEach(x=>{total+=(parseFloat(x.querySelector('.qty').value)||1)*(parseFloat(x.querySelector('.price').value)||0)});$('#subtotal').textContent=money(total);$('#total').textContent=money(total);$('#ptotal').textContent=money(total);$('#ftotal').textContent=money(total);$('#grandtotal').textContent=money(total);const half=total/2;document.querySelector('.deposit b').textContent=money(half);renderItems()}
-function renderItems(){const arr=[...document.querySelectorAll('#items .item')].map(x=>({name:x.querySelector('input').value,qty:x.querySelector('.qty').value,price:(parseFloat(x.querySelector('.price').value)||0)}));$('#previewItems').innerHTML=arr.map(x=>`<div class="pitem"><span>${x.name}<small>${x.qty} × ${money(x.price)}</small></span><b>${money(x.price*Number(x.qty||1))}</b></div>`).join('');$('#fullItems').innerHTML=arr.map(x=>`<div class="fullitem"><span>${x.name}<small>${x.qty} × ${money(x.price)}</small></span><b>${money(x.price*Number(x.qty||1))}</b></div>`).join('')}
-function preview(){ $('#pclient').textContent=$('#client').value||'Client';$('#fclient').textContent=$('#client').value||'Client';$('#ptitle').textContent=$('#title').value||'Proposal';$('#ftitle').textContent=$('#title').value||'Proposal';calc();$('#fullPreview').classList.add('show') }
-function closePreview(){$('#fullPreview').classList.remove('show')}
-function toast(t){$('#toast').textContent=t;$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),2200)}
-document.querySelectorAll('.choice').forEach(c=>c.onclick=()=>{document.querySelectorAll('.choice').forEach(x=>x.classList.remove('active'));c.classList.add('active')});
-renderItems();calc();
+function itemData(){return $$('#items .item').map(x=>({name:x.querySelector('input').value||'Service',qty:parseFloat(x.querySelector('.qty').value)||1,price:parseFloat(x.querySelector('.price').value)||0}))}
+function calc(){const arr=itemData(),total=arr.reduce((s,x)=>s+x.qty*x.price,0);$('#subtotal').textContent=money(total);$('#total').textContent=money(total);$('#ptotal').textContent=money(total);$('#ftotal').textContent=money(total);$('#grandtotal').textContent=money(total);$('#half1').textContent=money(total/2);$('#half2').textContent=money(total/2);$('#fullpay').textContent=money(total);paymentChanged();renderItems(arr)}
+function renderItems(arr=itemData()){$('#previewItems').innerHTML=arr.map(x=>`<div class="pitem"><span>${escapeHtml(x.name)}<small>${x.qty} × ${money(x.price)}</small></span><b>${money(x.price*x.qty)}</b></div>`).join('');$('#fullItems').innerHTML=arr.map(x=>`<div class="fullitem"><span>${escapeHtml(x.name)}<small>${x.qty} × ${money(x.price)}</small></span><b>${money(x.price*x.qty)}</b></div>`).join('')}
+function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function paymentChanged(){const mode=$('input[name=pay]:checked')?.value||'half',total=itemData().reduce((s,x)=>s+x.qty*x.price,0);$$('.choice').forEach(c=>c.classList.toggle('active',c.querySelector('input').checked));if(mode==='full'){$('#depositLabel').textContent='Due to start';$('#deposit').textContent=money(total)}else if(mode==='custom'){$('#depositLabel').textContent='First payment';$('#deposit').textContent=money(total*.3)}else{$('#depositLabel').textContent='Due to start';$('#deposit').textContent=money(total/2)}}
+function syncPreview(){if(!$('#client'))return;$('#pclient').textContent=$('#client').value||'Client';$('#fclient').textContent=$('#client').value||'Client';$('#ptitle').textContent=$('#title').value||'Proposal';$('#ftitle').textContent=$('#title').value||'Proposal';$('#ptimeline').textContent=$('#timeline').value;$('#ftimeline').textContent=$('#timeline').value;$('#pvalid').textContent=$('#valid').value;$('#fmessage').textContent=$('#message').value||'A focused plan designed around your goals.';calc()}
+function preview(){syncPreview();$('#fullPreview').classList.add('show');document.body.classList.add('modal-open')}
+function closePreview(){$('#fullPreview').classList.remove('show');document.body.classList.remove('modal-open')}
+function saveDraft(){$('#saveState').textContent='Draft · saved just now';toast('Draft saved')}
+function sendProposal(){saveDraft();toast('Proposal sent — share link created')}
+function acceptDemo(){toast('Demo: acceptance flow started')}
+function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>x.classList.remove('show'),2200)}
+renderRecent();renderDocuments();renderClients();renderBars();calc();syncPreview();go('overview');
 </script>
 </body></html>
