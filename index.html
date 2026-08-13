@@ -178,20 +178,49 @@ button:disabled{opacity:.55;cursor:not-allowed;transform:none!important;box-shad
 @media(max-width:900px){.topmid{display:none}.builder-panel{padding-top:2px}.leftbox{position:sticky;top:72px;z-index:8;background:#fff}.leftbox h4{margin-top:4px}.leftbox button{min-height:40px!important}.docbox{margin-top:12px}.toolbar .sort-btn{grid-column:1/-1}.client-action-wrap{margin-top:16px}}
 </style>
 
-<style id="qp-v4">
-/* V4 polish: premium contrast + mobile workspace */
-:root{--blue-dark:#1d4ed8}
-button,.stage,.att,.act,.stat,.template,.event,.doc-row{transition:background .16s ease,border-color .16s ease,box-shadow .16s ease,transform .16s ease}
-.clickable{cursor:pointer}.clickable:hover{transform:translateY(-1px);box-shadow:0 7px 22px rgba(16,24,40,.07);border-color:#cbd5e1}
-.stat{cursor:pointer}.stat:hover{border-color:#93c5fd;box-shadow:0 8px 24px rgba(37,99,235,.08)}
-.primary:hover,.cta:hover{filter:brightness(.96);box-shadow:0 7px 18px rgba(37,99,235,.18)}
-.secondary:hover,.ghost:hover{background:#f8fafc;border-color:#cbd5e1}
-.mobilebar{display:none}
-.empty-state{display:none;padding:40px 20px;text-align:center;color:#667085;background:#fff;border:1px solid var(--line);border-top:0}.empty-state strong{display:block;color:#344054;font-size:14px;margin-bottom:5px}.empty-state span{font-size:12px}
-.panel-note{background:#f8fafc;border:1px solid #edf0f4;border-radius:10px;padding:13px;color:#667085;font-size:11px;line-height:1.55}.panel-note b{color:#344054;font-size:12px}
-.design-swatches{display:flex;gap:9px}.swatch{width:32px;height:32px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1px #d0d5dd}.swatch.active{box-shadow:0 0 0 2px #101828}.builder-panel{display:none}.builder-panel.active{display:block}
-@media(max-width:900px){
-  body{padding-bottom:76px}.top{display:none}.mobilebar{display:flex;position:sticky;top:0;z-index:90;height:58px;background:rgba(255,255,255,.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);align-items:center;justify-content:space-between;padding:0 14px}.mobilebar .mbrand{font-weight:900;font-size:18px;letter-spacing:-.05em}.mobilebar .mbrand span{color:var(--blue)}.mobilebar button{border:1px solid var(--line);background:#fff;border-radius:9px;width:38px;height:38px;color:#344054}.layout{min-height:auto}.side{display:none!important}.main{padding:18px 14px 30px!important}.head{margin-bottom:17px!important}.head h1{font-size:28px!important}.head .primary{width:100%;margin-top:12px}.head>div:last-child{width:100%}.head>div:last-child .secondary,.head>div:last-child .primary{width:100%;margin-top:8px}.stats{grid-template-columns:1fr 1fr!important;gap:9px!important}.stat{padding:14px!important;min-height:115px}.stat b{font-size:23px!important}.grid2{display:block!important}.grid2>.card,.grid2>div>.card{margin-bottom:12px}.pipeline{grid-template-columns:1fr 1fr!important}.stage{padding:13px}.stage b{font-size:17px}.toolbar{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}.toolbar input{grid-column:1/-1;min-width:0!important}.toolbar select,.toolbar button{width:100%}.row{min-width:0!important;grid-template-columns:1.7fr .8fr .9fr!important;padding:14px 12px!important}.row>:nth-child(4),.row>:nth-child(5),.row>:nth-child(6){display:none!important}.row.headrow>:nth-child(4),.row.headrow>:nth-child(5),.row.headrow>:nth-child(6){display:none!important}.table{overflow:visible!important}.editor{display:block!important}.leftbox{display:none!important}.editbox{margin-bottom:12px}.docbox{padding:8px!important;min-height:0!important;overflow:visible!important}.doc{padding:25px 18px!important;border-radius:11px!important}.doc h2{font-size:31px!important}.docintro{font-size:13px}.delgrid{grid-template-columns:1fr!important}.qrow{grid-template-columns:1.6fr .6fr .9fr!important;font-size:11px}.clientwrap{padding:8px!important}.client{padding:28px 18px!important}.client h2{font-size:36px!important}.client p{font-size:13px}.clientbrand{margin-bottom:30px}.clienthi{grid-template-columns:1fr!important}.analytics,.settings,.templates{grid-template-columns:1fr!important}.templates{gap:10px}.template .thumb{height:110px}.modal-back{padding:12px}.modal{max-height:90vh;overflow:auto;padding:20px}.modal-actions{display:grid;grid-template-columns:1fr 1fr}.modal-actions button{width:100%}
+<style>
+/* Final stability patch: independent desktop sidebar + robust mobile workspace */
+@media (min-width:901px){
+  .layout{display:block!important;min-height:calc(100vh - 64px)!important}
+  .side{position:fixed!important;left:0!important;top:64px!important;bottom:0!important;width:235px!important;height:auto!important;overflow-y:auto!important;overscroll-behavior:contain!important;z-index:70!important}
+  .main{margin-left:235px!important;width:calc(100% - 235px)!important;max-width:none!important;min-height:calc(100vh - 64px)!important}
+}
+@media (max-width:900px){
+  html,body{width:100%;max-width:100%;overflow-x:hidden!important}
+  body{padding-top:60px!important;padding-bottom:0!important}
+  .layout{display:block!important;min-height:0!important}
+  .side{display:none!important}
+  .main{margin:0!important;width:100%!important;max-width:none!important;padding:18px 14px 92px!important;min-height:calc(100vh - 60px)!important}
+  .screen{width:100%!important;max-width:100%!important;overflow:visible!important}
+  .head{gap:14px!important;flex-direction:column!important;align-items:stretch!important}
+  .head>div:last-child{width:100%!important;display:flex!important;flex-wrap:wrap!important;gap:8px!important}
+  .head>div:last-child button{flex:1 1 auto!important;min-width:0!important}
+  .card,.docbox,.clientwrap,.client,.editor,.settings,.analytics,.grid2,.stats,.templates,.pipeline,.activity{max-width:100%!important;min-width:0!important}
+  .clientwrap{padding:12px!important;border-radius:12px!important;overflow:visible!important}
+  .client{padding:28px 18px 34px!important;border-radius:13px!important;width:100%!important;overflow:visible!important}
+  .client h2{font-size:clamp(30px,9vw,40px)!important;line-height:1.04!important;overflow-wrap:anywhere!important}
+  .clientbrand{margin-bottom:28px!important;gap:12px!important;flex-wrap:wrap!important}
+  .clienthi{grid-template-columns:1fr!important}
+  .qrow{grid-template-columns:minmax(0,1fr) 52px 78px!important;gap:8px!important}
+  .qrow>*{min-width:0!important;overflow-wrap:anywhere!important}
+  .delgrid{grid-template-columns:1fr!important}
+  .deal-status{flex-wrap:wrap!important;line-height:1.4!important}
+  .deal-arrow{font-size:10px!important}
+  .toolbar{grid-template-columns:1fr!important}
+  .toolbar>*{width:100%!important;min-width:0!important}
+  .table-wrap,.table{width:100%!important;max-width:100%!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}
+  .row{min-width:620px!important}
+  .modal-back{padding:12px!important;align-items:flex-end!important}
+  .modal{width:100%!important;max-width:520px!important;max-height:88vh!important;overflow:auto!important;border-radius:18px 18px 12px 12px!important}
+  input,textarea,select{max-width:100%!important}
+}
+@media (max-width:430px){
+  .main{padding-left:12px!important;padding-right:12px!important}
+  .clientwrap{padding:7px!important}
+  .client{padding:24px 15px 30px!important}
+  .clientbrand .doctag{font-size:9px!important}
+  .client .cta,.client .ghost{width:100%!important}
+  .client-action-wrap .signature-box,.client-action-wrap .payment-box{width:100%!important}
 }
 </style>
 </head>
@@ -220,7 +249,6 @@ button,.stage,.att,.act,.stat,.template,.event,.doc-row{transition:background .1
 <header class="top">
 <div class="brand">Quote<span>Page</span></div><div class="topmid"><button onclick="show('documents')">Documents</button><button onclick="show('analytics')">Revenue</button></div><div class="topright"><span>Acme Studio</span><div class="avatar">AS</div></div>
 </header>
-<div class="mobilebar"><div class="mbrand">Quote<span>Page</span></div><button aria-label="Menu" onclick="toggleDrawer(true)">☰</button></div>
 <div class="layout">
 <aside class="side">
 <button class="new" onclick="newDoc()">＋ Create document</button>
@@ -262,7 +290,7 @@ button,.stage,.att,.act,.stat,.template,.event,.doc-row{transition:background .1
 <div class="leftbox"><h4>DOCUMENT</h4><button class="active" data-builder-section="content">Content</button><button data-builder-section="recipients">Recipients</button><button data-builder-section="approvals">Approvals</button><button data-builder-section="signature">Signature</button><button data-builder-section="payment">Payment</button><button data-builder-section="settings">Settings</button><h4 style="margin-top:17px">INSERT</h4><button data-insert="Text">Text</button><button data-insert="Pricing table">Pricing table</button><button data-insert="Image">Image</button><button data-insert="Video">Video</button><button data-insert="FAQ">FAQ</button><button data-insert="Terms">Terms</button></div>
 <div class="editbox"><div class="tabs"><button class="active" data-tab="content">Content</button><button data-tab="fields">Fields</button><button data-tab="design">Design</button></div>
 <div class="builder-panel active" data-panel="content"><div class="field"><label>DOCUMENT TYPE</label><select id="doctype"><option>Sales proposal</option><option>Quote</option><option>Agreement</option><option>Statement of work</option></select></div>
-<div class="field"><label>CLIENT</label><input id="client" value="John Smith"></div>
+<div class="field"><label>CLIENT</label><input id="clientName" value="John Smith"></div>
 <div class="field"><label>PROJECT</label><input id="project" value="Website redesign"></div>
 <div class="field"><label>OPENING NOTE</label><textarea id="desc">A focused redesign to improve the homepage, mobile experience and conversion flow.</textarea></div>
 <div class="field"><label>DELIVERABLES</label><textarea id="included">Homepage redesign
@@ -357,14 +385,14 @@ function newDoc(){
   sync();toast('New proposal started');
 }
 function sync(){
-  if(!$('client'))return;
-  $('bp-client').textContent=$('client').value.trim()||'Your client';
+  if(!$('clientName'))return;
+  $('bp-client').textContent=$('clientName').value.trim()||'Your client';
   $('bp-project').textContent=$('project').value.trim()||'Your project';
   $('bp-desc').textContent=$('desc').value.trim()||'Your introduction';
   $('bp-time').textContent=$('timeline').value.trim()||'Timeline';
   const num=parseFloat(String($('price').value).replace(/[^0-9.]/g,''))||0;
   $('bp-price').textContent=num.toLocaleString(undefined,{maximumFractionDigits:2});
-  localStorage.setItem('qp_draft',JSON.stringify({client:$('client').value,project:$('project').value,desc:$('desc').value,included:$('included').value,timeline:$('timeline').value,price:$('price').value}));
+  localStorage.setItem('qp_draft',JSON.stringify({client:$('clientName').value,project:$('project').value,desc:$('desc').value,included:$('included').value,timeline:$('timeline').value,price:$('price').value}));
 }
 function restoreDraft(){
   try{const d=JSON.parse(localStorage.getItem('qp_draft')||'null');if(!d)return;Object.keys(d).forEach(id=>{if($(id)&&d[id]!==undefined)$(id).value=d[id]});sync()}catch(e){}
@@ -388,7 +416,7 @@ function updateDealUI(){
   steps.forEach(([id,s])=>{const el=$(id);if(!el)return;el.classList.remove('active','done');if(state.status===s)el.classList.add('active');if(order.indexOf(s)>=0&&order.indexOf(s)<idx)el.classList.add('done');if(state.status==='paid'&&s==='won')el.classList.add('active')});
   const action=$('clientAction'),title=$('nextTitle'),text=$('nextText');if(!action)return;
   if(state.status==='viewed'||state.status==='sent'){title.textContent='Ready to move forward?';text.textContent='Accepting confirms the scope. The next step will be a signature and deposit.';action.innerHTML='<button class="cta" onclick="openAccept()">Accept & continue</button>'}
-  else if(state.status==='accepted'){title.textContent='Proposal accepted';text.textContent='One quick step left: sign the agreement.';action.innerHTML='<div class="signature-box"><b>Electronic signature</b><div class="muted" style="margin-top:5px">By clicking below, the customer confirms the agreement.</div><div class="signature-line">'+(($('client')?.value)||'Client')+'</div><button class="cta" style="margin-top:13px" onclick="confirmSignature()">Sign agreement</button></div>'}
+  else if(state.status==='accepted'){title.textContent='Proposal accepted';text.textContent='One quick step left: sign the agreement.';action.innerHTML='<div class="signature-box"><b>Electronic signature</b><div class="muted" style="margin-top:5px">By clicking below, the customer confirms the agreement.</div><div class="signature-line">'+(($('clientName')?.value)||'Client')+'</div><button class="cta" style="margin-top:13px" onclick="confirmSignature()">Sign agreement</button></div>'}
   else if(state.status==='signed'){const total=parseFloat(String($('price')?.value||1200).replace(/[^0-9.]/g,''))||1200;const deposit=total*0.5;title.textContent='Signed — secure your start date';text.textContent='The document is signed. The configured deposit is now due.';action.innerHTML='<div class="payment-box"><div class="pay-title">Deposit due today</div><div class="pay-amt">$'+deposit.toLocaleString(undefined,{maximumFractionDigits:2})+'</div><div class="muted" style="margin-top:4px">50% of the $'+total.toLocaleString(undefined,{maximumFractionDigits:2})+' project total.</div><button class="cta" style="margin-top:13px" onclick="confirmPayment()">Pay deposit</button></div>'}
   else {title.textContent='You’re all set 🎉';text.textContent='The agreement is signed and the deposit is paid.';action.innerHTML='<div class="success" style="display:block">✓ Deal complete — status: Won</div><button class="ghost" style="margin-top:10px;width:100%" onclick="resetDeal()">Reset demo flow</button>'}
 }
@@ -458,16 +486,26 @@ $('acceptModal')?.addEventListener('click',e=>{if(e.target.id==='acceptModal')cl
 restoreDraft();initTemplates();initDocuments();initBuilder();initClicks();updateDealUI();
 </script>
 <script>document.documentElement.classList.add("qp-ready");</script>
-<script id="qp-v4-js">
+<script>
+/* QuotePage reliability guard */
 (function(){
-  // Make every primary navigation item work, including keyboard activation.
-  document.querySelectorAll('[id^="nav-"],[id^="mnav-"]').forEach(function(btn){
-    btn.addEventListener('click',function(){var id=this.id.replace(/^mnav-|^nav-/,''); if(typeof show==='function') show(id);});
-  });
-  // Make dashboard pipeline cards point to filtered Documents context.
-  document.querySelectorAll('.stage').forEach(function(el){el.setAttribute('role','button');el.setAttribute('tabindex','0');el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click()}})});
-  // Close drawer when viewport becomes desktop.
-  window.addEventListener('resize',function(){if(window.innerWidth>900 && typeof toggleDrawer==='function')toggleDrawer(false)});
+  const originalShow=window.show;
+  window.show=function(id){
+    if(id==='client'){
+      const target=document.getElementById('client');
+      if(!target)return;
+      document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+      target.classList.add('active');
+      document.querySelectorAll('.side button,.mobile-drawer>button').forEach(x=>x.classList.remove('active'));
+      const n=document.getElementById('nav-client'); if(n)n.classList.add('active');
+      const mn=document.getElementById('mnav-client'); if(mn)mn.classList.add('active');
+      if(typeof toggleDrawer==='function')toggleDrawer(false);
+      window.scrollTo({top:0,behavior:'instant'});
+      if(typeof updateDealUI==='function')updateDealUI();
+      return;
+    }
+    return originalShow(id);
+  };
 })();
 </script>
 </body>
