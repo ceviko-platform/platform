@@ -111,10 +111,97 @@ body{min-height:100vh;overflow-x:hidden}
   .mobile-only{display:none!important}
 }
 </style>
-<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="theme-color" content="#f7f8fa"></head>
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="theme-color" content="#f7f8fa">
+<style>
+/* Client-ready polish layer */
+:root{--ink:#101828;--muted:#667085;--line:#e4e7ec;--bg:#f7f8fa;--card:#fff;--blue:#2563eb;--blue2:#eff6ff}
+body{color:var(--ink);background:var(--bg)}
+.card,.stat,.table,.toolbar,.leftbox,.editbox,.docbox,.template,.metric,.activitycard,.setting,.client,.modal{color:var(--ink)}
+.card h3,.stat b,.template b,.metric h3,.event b,.att b,.setting h3,.doc h2,.client h2{color:var(--ink)}
+.sub,.head p,.muted,.stat small,.template span,.event p,.att span,.scope-row span,.docintro,.fine{color:var(--muted)}
+.field input,.field textarea,.field select,.toolbar input,.toolbar select,.setting input,.setting select{color:#101828;background:#fff}
+.field input::placeholder,.toolbar input::placeholder{color:#98a2b3}
+.side button{color:#475467}.side button:hover,.side button.active{color:#1d4ed8}
+.primary,.secondary,.danger,.ghost{transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease,background .15s ease}
+.primary:hover{box-shadow:0 7px 18px #2563eb26;transform:translateY(-1px)}
+.secondary:hover{border-color:#98a2b3;background:#f9fafb;transform:translateY(-1px)}
+button:active{transform:translateY(0)!important}
+.template,.att,.stage,.event,.activity .act,.metric,.stat{transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease}
+.clickable{cursor:pointer}.clickable:hover{border-color:#93c5fd;box-shadow:0 8px 24px #1018280d;transform:translateY(-1px)}
+.mobilebar,.mobile-drawer,.drawer-back{display:none}
+
+@media(max-width:900px){
+  body{padding-top:60px}
+  .top{display:none!important}
+  .main{padding:18px 14px 28px!important}
+  .mobilebar{display:flex;position:fixed;left:0;right:0;top:0;height:60px;z-index:120;align-items:center;justify-content:space-between;padding:0 14px;background:rgba(255,255,255,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(18px)}
+  .mobile-brand{font-weight:900;font-size:20px;letter-spacing:-.05em;color:#101828}.mobile-brand span{color:var(--blue)}
+  .menu-btn,.mobile-create,.drawer-close{border:0;background:transparent;color:#101828;min-height:42px!important;min-width:42px!important;border-radius:10px;display:grid;place-items:center}.menu-btn{gap:4px}.menu-btn span{display:block;width:21px;height:2px;background:#101828;border-radius:3px}.mobile-create{font-size:27px;color:var(--blue)}
+  .drawer-back{position:fixed;inset:0;background:#10182866;z-index:125}.drawer-back.open{display:block}
+  .mobile-drawer{display:flex;position:fixed;top:0;bottom:0;left:0;width:min(330px,88vw);z-index:130;background:#101214;color:#f8fafc;flex-direction:column;padding:18px 14px;box-shadow:18px 0 55px #0005;transform:translateX(-105%);transition:transform .22s ease;overflow:auto}
+  .mobile-drawer.open{transform:translateX(0)}
+  .drawer-head{display:flex;align-items:center;justify-content:space-between;padding:4px 4px 18px}.drawer-head .mobile-brand{color:#fff}.drawer-head .mobile-brand span{color:#93b4ff}.drawer-close{color:#fff;font-size:30px}
+  .drawer-new{border:0;border-radius:14px;background:#fff;color:#2563eb;font-weight:800;padding:14px 16px;margin-bottom:18px;min-height:54px!important;text-align:left}
+  .drawer-label{font-size:10px;letter-spacing:.1em;color:#8b949e;font-weight:800;padding:8px 10px}
+  .mobile-drawer>button:not(.drawer-new):not(.drawer-close){border:0;background:transparent;color:#c8ced7;text-align:left;border-radius:12px;padding:13px 12px;display:flex;align-items:center;gap:12px;font-size:20px;min-height:48px!important;margin:2px 0}.mobile-drawer>button span{font-size:15px;font-weight:650}.mobile-drawer>button em{margin-left:auto;background:#2b3038;border-radius:999px;padding:4px 9px;font-size:11px;font-style:normal}.mobile-drawer>button.active,.mobile-drawer>button:hover{background:#202328;color:#fff}.drawer-spacer{flex:1;min-height:30px}.drawer-account{display:flex;align-items:center;gap:11px;border-top:1px solid #2a2f35;padding:17px 8px 4px;margin-top:10px}.drawer-account .avatar{flex:none}.drawer-account b,.drawer-account small{display:block}.drawer-account b{font-size:13px}.drawer-account small{color:#8b949e;font-size:11px;margin-top:2px}
+  .head{align-items:stretch}.head h1{font-size:29px!important}.head>div:last-child,.head>button{margin-top:14px}.head .primary{width:100%}
+  .stats{gap:9px!important}.stat{padding:14px!important;border-radius:14px}.stat b{font-size:23px!important}
+  .grid2,.analytics,.settings{grid-template-columns:1fr!important}.pipeline{grid-template-columns:1fr 1fr!important}.stage{padding:13px}.chart{height:135px}
+  .toolbar{display:grid!important;grid-template-columns:1fr 1fr!important;margin:0 0 12px!important;padding:10px!important}.toolbar input{grid-column:1/-1;min-width:0!important}.toolbar button{width:100%}
+  .table{overflow-x:auto!important}.row{min-width:720px!important}.row.headrow{min-width:720px!important}
+  .editor{grid-template-columns:1fr!important}.leftbox{display:block!important;overflow:auto}.leftbox button{display:inline-block;width:auto;margin:2px}.docbox{padding:12px!important}.doc{padding:27px 19px!important}.doc h2{font-size:35px!important}.delgrid{grid-template-columns:1fr!important}
+  .templates{grid-template-columns:1fr 1fr!important;gap:9px}.thumb{height:118px}
+  .client{padding:26px 18px 30px!important}.client h2{font-size:37px!important}.clienthi{grid-template-columns:1fr!important}.deal-status{gap:5px}.deal-arrow{font-size:9px}
+  .modal-back{padding:14px!important}.modal{max-width:480px!important;width:100%!important}
+  input,textarea,select{font-size:16px!important}
+}
+@media(max-width:430px){.templates{grid-template-columns:1fr!important}.pipeline{grid-template-columns:1fr 1fr!important}.main{padding-left:12px!important;padding-right:12px!important}.stats{grid-template-columns:1fr 1fr!important}.stat b{font-size:21px!important}.doc h2,.client h2{font-size:33px!important}}
+@media(min-width:901px){.mobilebar,.mobile-drawer,.drawer-back{display:none!important}}
+</style>
+
+<style>
+/* Final client-ready interaction layer */
+:root{--blue:#2563eb;--blue-dark:#1d4ed8;--ink:#101828;--muted:#667085;--line:#e4e7ec;--bg:#f7f8fa}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:disabled{opacity:.55;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+.screen{animation:qpIn .18s ease both}@keyframes qpIn{from{opacity:.55;transform:translateY(3px)}to{opacity:1;transform:none}}
+.topmid button{border:0;background:transparent;color:var(--muted);font-size:13px;padding:8px;border-radius:8px}.topmid button:hover{background:#f2f4f7;color:var(--ink)}
+.row.doc-row{cursor:pointer}.row.doc-row button{cursor:pointer}
+.toolbar .sort-btn{white-space:nowrap}.toolbar .sort-btn.is-desc{background:#f2f4f7}
+.empty-state{display:none;text-align:center;padding:44px 20px;background:#fff;border:1px solid var(--line);border-top:0;color:var(--muted)}
+.empty-state strong{display:block;color:var(--ink);font-size:14px;margin-bottom:5px}
+.leftbox button[data-builder-section]{position:relative}.leftbox button[data-builder-section].active:after{content:'';position:absolute;right:8px;top:50%;width:5px;height:5px;border-radius:50%;background:var(--blue);transform:translateY(-50%)}
+.builder-panel{display:none}.builder-panel.active{display:block}.panel-note{background:#f8fafc;border:1px solid #edf0f4;border-radius:10px;padding:12px;color:var(--muted);font-size:12px;line-height:1.55}
+.design-swatches{display:flex;gap:8px;flex-wrap:wrap}.swatch{width:34px;height:34px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer}.swatch.active{box-shadow:0 0 0 2px var(--blue)}
+.client-action-wrap{margin-top:20px}.client-action-wrap .cta{margin-top:0}
+.toast-action{display:flex;gap:8px;margin-top:10px}.toast-action button{min-height:38px!important}
+@media(max-width:900px){.topmid{display:none}.builder-panel{padding-top:2px}.leftbox{position:sticky;top:72px;z-index:8;background:#fff}.leftbox h4{margin-top:4px}.leftbox button{min-height:40px!important}.docbox{margin-top:12px}.toolbar .sort-btn{grid-column:1/-1}.client-action-wrap{margin-top:16px}}
+</style>
+</head>
 <body>
+<div class="mobilebar" id="mobilebar">
+  <button class="menu-btn" aria-label="Open navigation" onclick="toggleDrawer(true)"><span></span><span></span><span></span></button>
+  <div class="mobile-brand">Quote<span>Page</span></div>
+  <button class="mobile-create" aria-label="Create document" onclick="newDoc()">＋</button>
+</div>
+<div class="drawer-back" id="drawerBack" onclick="toggleDrawer(false)"></div>
+<aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+  <div class="drawer-head"><div class="mobile-brand">Quote<span>Page</span></div><button class="drawer-close" onclick="toggleDrawer(false)">×</button></div>
+  <button class="drawer-new" onclick="toggleDrawer(false);newDoc()">＋ New proposal</button>
+  <div class="drawer-label">WORKSPACE</div>
+  <button id="mnav-dashboard" onclick="mobileGo('dashboard')">⌂ <span>Overview</span></button>
+  <button id="mnav-documents" onclick="mobileGo('documents')">▣ <span>Documents</span><em>12</em></button>
+  <button id="mnav-templates" onclick="mobileGo('templates')">◫ <span>Templates</span></button>
+  <button id="mnav-analytics" onclick="mobileGo('analytics')">◔ <span>Analytics</span></button>
+  <button id="mnav-activity" onclick="mobileGo('activity')">◌ <span>Activity</span></button>
+  <div class="drawer-spacer"></div>
+  <button id="mnav-settings" onclick="mobileGo('settings')">⚙ <span>Settings</span></button>
+  <button id="mnav-client" onclick="mobileGo('client')">↗ <span>Client preview</span></button>
+  <div class="drawer-account"><div class="avatar">AS</div><div><b>Acme Studio</b><small>Owner</small></div></div>
+</aside>
+
 <header class="top">
-<div class="brand">Quote<span>Page</span></div><div class="topmid"><span>Documents</span><span>Revenue</span></div><div class="topright"><span>Acme Studio</span><div class="avatar">AS</div></div>
+<div class="brand">Quote<span>Page</span></div><div class="topmid"><button onclick="show('documents')">Documents</button><button onclick="show('analytics')">Revenue</button></div><div class="topright"><span>Acme Studio</span><div class="avatar">AS</div></div>
 </header>
 <div class="layout">
 <aside class="side">
@@ -144,19 +231,19 @@ body{min-height:100vh;overflow-x:hidden}
 
 <section class="screen" id="documents">
 <div class="head"><div><h1>Documents</h1><p>Create, send, sign and collect payments from one workspace.</p></div><button class="primary" onclick="newDoc()">＋ Create document</button></div>
-<div class="toolbar"><input placeholder="Search documents or clients…"><select><option>All types</option><option>Proposal</option><option>Quote</option><option>Agreement</option></select><select><option>All statuses</option><option>Draft</option><option>Sent</option><option>Viewed</option><option>Accepted</option></select><button class="secondary">Newest</button></div>
+<div class="toolbar"><input placeholder="Search documents or clients…"><select><option>All types</option><option>Proposal</option><option>Quote</option><option>Agreement</option></select><select><option>All statuses</option><option>Draft</option><option>Sent</option><option>Viewed</option><option>Accepted</option></select><button class="secondary sort-btn" id="sortDocuments" type="button">Newest ↓</button></div>
 <div class="table"><div class="row headrow"><div>Document</div><div>Type</div><div>Status</div><div>Value</div><div>Updated</div><div></div></div>
-<div class="row"><div><b>Website redesign</b><br><span class="muted">John Smith</span></div><div>Proposal</div><div><span class="pill accepted">Accepted</span></div><div>$1,200</div><div>2h ago</div><button class="secondary" onclick="show('client')">Open</button></div>
-<div class="row"><div><b>Brand identity</b><br><span class="muted">North Studio</span></div><div>Proposal</div><div><span class="pill viewed">Viewed</span></div><div>$2,800</div><div>41m ago</div><button class="secondary" onclick="show('client')">Open</button></div>
-<div class="row"><div><b>SEO retainer</b><br><span class="muted">Green Market</span></div><div>Quote</div><div><span class="pill sent">Sent</span></div><div>$650/mo</div><div>2d ago</div><button class="secondary" onclick="show('client')">Open</button></div>
-</div></section>
+<div class="row doc-row" data-name="Website redesign" data-client="John Smith" data-type="Proposal" data-status="Accepted"><div><b>Website redesign</b><br><span class="muted">John Smith</span></div><div>Proposal</div><div><span class="pill accepted">Accepted</span></div><div>$1,200</div><div>2h ago</div><button class="secondary" onclick="show('client')">Open</button></div>
+<div class="row doc-row" data-name="Brand identity" data-client="North Studio" data-type="Proposal" data-status="Viewed"><div><b>Brand identity</b><br><span class="muted">North Studio</span></div><div>Proposal</div><div><span class="pill viewed">Viewed</span></div><div>$2,800</div><div>41m ago</div><button class="secondary" onclick="show('client')">Open</button></div>
+<div class="row doc-row" data-name="SEO retainer" data-client="Green Market" data-type="Quote" data-status="Sent"><div><b>SEO retainer</b><br><span class="muted">Green Market</span></div><div>Quote</div><div><span class="pill sent">Sent</span></div><div>$650/mo</div><div>2d ago</div><button class="secondary" onclick="show('client')">Open</button></div>
+</div><div class="empty-state" id="documentsEmpty"><strong>No documents found</strong><span>Try another search or reset the filters.</span></div></section>
 
 <section class="screen" id="builder">
 <div class="head"><div><h1>Create document</h1><p>Design, send, approve and collect — in one flow.</p></div><div><button class="secondary" onclick="saveDraft()">Save draft</button> <button class="primary" onclick="sendDocument()">Send</button></div></div>
 <div class="editor">
-<div class="leftbox"><h4>DOCUMENT</h4><button class="active">Content</button><button>Recipients</button><button>Approvals</button><button>Signature</button><button>Payment</button><button>Settings</button><h4 style="margin-top:17px">INSERT</h4><button>Text</button><button>Pricing table</button><button>Image</button><button>Video</button><button>FAQ</button><button>Terms</button></div>
-<div class="editbox"><div class="tabs"><button class="active">Content</button><button>Fields</button><button>Design</button></div>
-<div class="field"><label>DOCUMENT TYPE</label><select id="doctype"><option>Sales proposal</option><option>Quote</option><option>Agreement</option><option>Statement of work</option></select></div>
+<div class="leftbox"><h4>DOCUMENT</h4><button class="active" data-builder-section="content">Content</button><button data-builder-section="recipients">Recipients</button><button data-builder-section="approvals">Approvals</button><button data-builder-section="signature">Signature</button><button data-builder-section="payment">Payment</button><button data-builder-section="settings">Settings</button><h4 style="margin-top:17px">INSERT</h4><button data-insert="Text">Text</button><button data-insert="Pricing table">Pricing table</button><button data-insert="Image">Image</button><button data-insert="Video">Video</button><button data-insert="FAQ">FAQ</button><button data-insert="Terms">Terms</button></div>
+<div class="editbox"><div class="tabs"><button class="active" data-tab="content">Content</button><button data-tab="fields">Fields</button><button data-tab="design">Design</button></div>
+<div class="builder-panel active" data-panel="content"><div class="field"><label>DOCUMENT TYPE</label><select id="doctype"><option>Sales proposal</option><option>Quote</option><option>Agreement</option><option>Statement of work</option></select></div>
 <div class="field"><label>CLIENT</label><input id="client" value="John Smith"></div>
 <div class="field"><label>PROJECT</label><input id="project" value="Website redesign"></div>
 <div class="field"><label>OPENING NOTE</label><textarea id="desc">A focused redesign to improve the homepage, mobile experience and conversion flow.</textarea></div>
@@ -167,14 +254,16 @@ Analytics setup</textarea></div>
 <div class="ai"><b>✦ AI document assistant</b><p>Improve the message without changing commercial terms.</p><button onclick="rewrite('clear')">Clear</button><button onclick="rewrite('warm')">Warm</button><button onclick="rewrite('premium')">Premium</button></div>
 <div class="workflow"><b style="font-size:12px">Deal workflow</b><div style="display:flex;gap:6px;margin-top:8px"><span style="flex:1;text-align:center;padding:7px;border-radius:7px;background:var(--blue2);font-size:10px;color:#1d4ed8;font-weight:800">Review</span><span style="color:#98a2b3">→</span><span style="flex:1;text-align:center;padding:7px;border-radius:7px;background:#f2f4f7;font-size:10px">Sign</span><span style="color:#98a2b3">→</span><span style="flex:1;text-align:center;padding:7px;border-radius:7px;background:#f2f4f7;font-size:10px">Pay</span></div></div>
 </div>
-<div class="docbox"><div class="doc"><div class="docbrand"><div class="doclogo">Acme Studio</div><div class="doctag">PROPOSAL</div></div><div class="doctag">Prepared for <span id="bp-client">John Smith</span></div><h2 id="bp-project">Website redesign</h2><p class="docintro" id="bp-desc"></p><div class="docsection">Deliverables</div><div class="delgrid"><div class="del"><b>Homepage redesign</b><p>Clearer hierarchy and conversion-focused structure.</p></div><div class="del"><b>Mobile optimization</b><p>Responsive presentation across common breakpoints.</p></div><div class="del"><b>Analytics setup</b><p>Basic measurement and event tracking.</p></div><div class="del"><b>Launch support</b><p>Final QA and handoff.</p></div></div><div class="docsection">Pricing</div><div class="quote"><div class="qrow h"><span>Item</span><span>Qty</span><span>Amount</span></div><div class="qrow"><span>Website redesign package</span><span>1</span><span>$<span id="bp-price">1,200</span></span></div></div><div class="scope"><div class="scope-row"><span>Timeline</span><b id="bp-time">14 days</b></div><div class="scope-row"><span>Deposit</span><b>50% to start</b></div></div><button class="cta" onclick="show('client')">Open client experience</button></div></div>
+<div class="builder-panel" data-panel="fields"><div class="panel-note"><b>Client fields</b><br>Use the fields already connected to this proposal. Client name, project, timeline and pricing update the preview instantly.</div><div class="field"><label>CLIENT EMAIL</label><input id="clientEmail" type="email" placeholder="client@company.com"></div><div class="field"><label>PAYMENT TERMS</label><select id="paymentTerms"><option>50% deposit to start</option><option>100% upfront</option><option>Net 7</option><option>Net 14</option><option>Net 30</option></select></div></div>
+<div class="builder-panel" data-panel="design"><div class="panel-note"><b>Brand styling</b><br>Choose an accent color for the client document. This is a local demo setting and can be changed any time.</div><div class="field"><label>ACCENT COLOR</label><div class="design-swatches"><button type="button" class="swatch active" data-color="#2563eb" style="background:#2563eb" aria-label="Blue"></button><button type="button" class="swatch" data-color="#7c3aed" style="background:#7c3aed" aria-label="Purple"></button><button type="button" class="swatch" data-color="#059669" style="background:#059669" aria-label="Green"></button><button type="button" class="swatch" data-color="#ea580c" style="background:#ea580c" aria-label="Orange"></button></div></div></div>
+</div><div class="docbox"><div class="doc"><div class="docbrand"><div class="doclogo">Acme Studio</div><div class="doctag">PROPOSAL</div></div><div class="doctag">Prepared for <span id="bp-client">John Smith</span></div><h2 id="bp-project">Website redesign</h2><p class="docintro" id="bp-desc"></p><div class="docsection">Deliverables</div><div class="delgrid"><div class="del"><b>Homepage redesign</b><p>Clearer hierarchy and conversion-focused structure.</p></div><div class="del"><b>Mobile optimization</b><p>Responsive presentation across common breakpoints.</p></div><div class="del"><b>Analytics setup</b><p>Basic measurement and event tracking.</p></div><div class="del"><b>Launch support</b><p>Final QA and handoff.</p></div></div><div class="docsection">Pricing</div><div class="quote"><div class="qrow h"><span>Item</span><span>Qty</span><span>Amount</span></div><div class="qrow"><span>Website redesign package</span><span>1</span><span>$<span id="bp-price">1,200</span></span></div></div><div class="scope"><div class="scope-row"><span>Timeline</span><b id="bp-time">14 days</b></div><div class="scope-row"><span>Deposit</span><b>50% to start</b></div></div><button class="cta" onclick="show('client')">Open client experience</button></div></div>
 </div></section>
 
 <section class="screen" id="templates"><div class="head"><div><h1>Templates</h1><p>Choose a proven layout for proposals, quotes and agreements.</p></div><button class="primary" onclick="show('builder')">＋ Start blank</button></div><div class="templates">
-<div class="template"><div class="thumb"><div class="tl" style="width:35%"></div><div class="tl"></div><div class="tl"></div><div class="tl blue" style="width:40%"></div><div class="tl" style="width:55%"></div></div><b>Minimal proposal</b><span>Simple & focused</span></div>
-<div class="template"><div class="thumb" style="background:#faf5ff"><div class="tl blue" style="width:28%"></div><div class="tl" style="width:65%"></div><div class="tl" style="width:45%"></div><div class="tl"></div></div><b>Studio proposal</b><span>Creative & modern</span></div>
-<div class="template"><div class="thumb" style="background:#f4f4f5"><div class="tl" style="width:30%"></div><div class="tl"></div><div class="tl" style="width:55%"></div><div class="tl blue" style="width:52%"></div></div><b>Executive quote</b><span>Premium & formal</span></div>
-<div class="template"><div class="thumb" style="background:#effdf5"><div class="tl" style="width:42%"></div><div class="tl blue" style="width:70%"></div><div class="tl"></div><div class="tl" style="width:56%"></div></div><b>Service package</b><span>Friendly & clear</span></div>
+<div class="template clickable" role="button" tabindex="0" data-template="Minimal proposal"><div class="thumb"><div class="tl" style="width:35%"></div><div class="tl"></div><div class="tl"></div><div class="tl blue" style="width:40%"></div><div class="tl" style="width:55%"></div></div><b>Minimal proposal</b><span>Simple & focused</span></div>
+<div class="template clickable" role="button" tabindex="0" data-template="Studio proposal"><div class="thumb" style="background:#faf5ff"><div class="tl blue" style="width:28%"></div><div class="tl" style="width:65%"></div><div class="tl" style="width:45%"></div><div class="tl"></div></div><b>Studio proposal</b><span>Creative & modern</span></div>
+<div class="template clickable" role="button" tabindex="0" data-template="Executive quote"><div class="thumb" style="background:#f4f4f5"><div class="tl" style="width:30%"></div><div class="tl"></div><div class="tl" style="width:55%"></div><div class="tl blue" style="width:52%"></div></div><b>Executive quote</b><span>Premium & formal</span></div>
+<div class="template clickable" role="button" tabindex="0" data-template="Service package"><div class="thumb" style="background:#effdf5"><div class="tl" style="width:42%"></div><div class="tl blue" style="width:70%"></div><div class="tl"></div><div class="tl" style="width:56%"></div></div><b>Service package</b><span>Friendly & clear</span></div>
 </div></section>
 
 <section class="screen" id="analytics"><div class="head"><div><h1>Analytics</h1><p>Track the journey from document sent to revenue won.</p></div><select class="secondary"><option>Last 30 days</option><option>Last 90 days</option><option>This year</option></select></div><div class="analytics">
@@ -191,13 +280,13 @@ Analytics setup</textarea></div>
 <div class="event"><div class="round">→</div><div><b>Proposal sent</b><p>Green Market received SEO retainer</p></div><time>Yesterday</time></div>
 </div></div></section>
 
-<section class="screen" id="settings"><div class="head"><div><h1>Brand & settings</h1><p>Set your identity once. Reuse it across every document.</p></div><button class="primary" onclick="toast('Settings saved')">Save changes</button></div><div class="settings">
+<section class="screen" id="settings"><div class="head"><div><h1>Brand & settings</h1><p>Set your identity once. Reuse it across every document.</p></div><button class="primary" onclick="saveSettings()">Save changes</button></div><div class="settings">
 <div class="setting"><h3>Brand</h3><label>Business name</label><input value="Acme Studio"><label>Website</label><input value="https://acme.studio"><label>Default tone</label><select><option>Clear & professional</option><option>Warm & friendly</option><option>Premium & formal</option></select></div>
 <div class="setting"><h3>Closing flow</h3><label>Signature</label><select><option>Required before payment</option><option>Optional</option><option>Not used</option></select><label>Payment</label><select><option>50% deposit after acceptance</option><option>100% upfront</option><option>Invoice later</option></select><label>Primary color</label><input value="#2563EB"></div>
 </div></section>
 
 <section class="screen" id="client">
-<div class="head"><div><h1>Client experience</h1><p>This is the public page your customer receives.</p></div><button class="primary" onclick="copyPublicLink()">Copy public link</button></div>
+<div class="head"><div><h1>Client experience</h1><p>This is the public page your customer receives.</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" onclick="resetDeal()">Reset demo</button><button class="primary" onclick="copyPublicLink()">Copy public link</button></div></div>
 <div class="clientwrap"><div class="client">
 <div class="clientbrand"><div class="doclogo">Acme Studio</div><div class="doctag">PROPOSAL</div></div>
 <div class="deal-status">
@@ -213,7 +302,7 @@ Analytics setup</textarea></div>
 <div class="docsection">What you're getting</div><div class="delgrid"><div class="del"><b>Homepage redesign</b><p>Clearer hierarchy and conversion-focused structure.</p></div><div class="del"><b>Mobile optimization</b><p>Responsive across common breakpoints.</p></div><div class="del"><b>Analytics setup</b><p>Basic measurement and event tracking.</p></div><div class="del"><b>Launch support</b><p>Final QA and handoff.</p></div></div>
 <div class="docsection">Investment</div><div class="quote"><div class="qrow h"><span>Service</span><span>Qty</span><span>Total</span></div><div class="qrow"><span>Website redesign package</span><span>1</span><span>$1,200</span></div></div>
 <div class="next"><b id="nextTitle">Ready to move forward?</b><p id="nextText">Accepting confirms the scope. The next step can be a signature and deposit.</p></div>
-<div id="clientAction">
+<div id="clientAction" class="client-action-wrap">
   <button class="cta" onclick="openAccept()">Accept & continue</button>
 </div>
 <div class="fine">Questions? Reply to the sender or use the contact details in this proposal.</div>
@@ -224,95 +313,131 @@ Analytics setup</textarea></div>
 <div class="modal-back" id="acceptModal"><div class="modal"><h2 id="modalTitle">Confirm proposal</h2><p id="modalText">You’re accepting the scope and total investment of <b>$1,200</b>. Next, you’ll sign and then pay the deposit.</p><div class="modal-actions"><button class="secondary" onclick="closeAccept()">Cancel</button><button class="primary" onclick="confirmAccept()">Accept proposal</button></div></div></div>
 
 <script>
-const state = {status:'viewed'};
+const state={status:localStorage.getItem('qp_status')||'viewed'};
+const $=id=>document.getElementById(id);
 function show(id){
+  const target=$(id); if(!target)return;
   document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.side button').forEach(x=>x.classList.remove('active'));
-  const n=document.getElementById('nav-'+id); if(n)n.classList.add('active');
+  target.classList.add('active');
+  document.querySelectorAll('.side button,.mobile-drawer>button').forEach(x=>x.classList.remove('active'));
+  const n=$('nav-'+id);if(n)n.classList.add('active');
+  const mn=$('mnav-'+id);if(mn)mn.classList.add('active');
+  toggleDrawer(false);
   window.scrollTo({top:0,behavior:'smooth'});
-  if(id==='client') updateDealUI();
+  if(id==='client')updateDealUI();
+}
+function mobileGo(id){show(id)}
+function toggleDrawer(open){
+  const d=$('mobileDrawer'),b=$('drawerBack');if(!d||!b)return;
+  d.classList.toggle('open',open);b.classList.toggle('open',open);
+  document.body.classList.toggle('drawer-open',open);
 }
 function newDoc(){
   show('builder');
-  for(const id of ['client','project','desc','included','timeline','price']) document.getElementById(id).value='';
-  sync();
+  const defaults={client:'',project:'',desc:'',included:'',timeline:'',price:''};
+  Object.entries(defaults).forEach(([id,v])=>{if($(id))$(id).value=v});
+  sync();toast('New proposal started');
 }
 function sync(){
-  document.getElementById('bp-client').textContent=document.getElementById('client').value||'Your client';
-  document.getElementById('bp-project').textContent=document.getElementById('project').value||'Your project';
-  document.getElementById('bp-desc').textContent=document.getElementById('desc').value||'Your introduction';
-  document.getElementById('bp-time').textContent=document.getElementById('timeline').value||'Timeline';
-  document.getElementById('bp-price').textContent=Number(document.getElementById('price').value||0).toLocaleString();
+  if(!$('client'))return;
+  $('bp-client').textContent=$('client').value.trim()||'Your client';
+  $('bp-project').textContent=$('project').value.trim()||'Your project';
+  $('bp-desc').textContent=$('desc').value.trim()||'Your introduction';
+  $('bp-time').textContent=$('timeline').value.trim()||'Timeline';
+  const num=parseFloat(String($('price').value).replace(/[^0-9.]/g,''))||0;
+  $('bp-price').textContent=num.toLocaleString(undefined,{maximumFractionDigits:2});
+  localStorage.setItem('qp_draft',JSON.stringify({client:$('client').value,project:$('project').value,desc:$('desc').value,included:$('included').value,timeline:$('timeline').value,price:$('price').value}));
+}
+function restoreDraft(){
+  try{const d=JSON.parse(localStorage.getItem('qp_draft')||'null');if(!d)return;Object.keys(d).forEach(id=>{if($(id)&&d[id]!==undefined)$(id).value=d[id]});sync()}catch(e){}
 }
 function rewrite(mode){
-  const t={
-    clear:'A clear, focused solution designed to deliver the requested outcome with a defined scope and practical timeline.',
-    warm:'We’re looking forward to helping you bring this project to life with a clear scope, collaborative process and thoughtful execution.',
-    premium:'A thoughtfully scoped, high-quality solution designed to deliver a polished outcome with clear attention to detail and a seamless client experience.'
-  };
-  document.getElementById('desc').value=t[mode]; sync();
+  const t={clear:'A clear, focused solution designed to deliver the requested outcome with a defined scope and practical timeline.',warm:'We’re looking forward to helping you bring this project to life with a clear scope, collaborative process and thoughtful execution.',premium:'A thoughtfully scoped, high-quality solution designed to deliver a polished outcome with clear attention to detail and a seamless client experience.'};
+  if($("desc")){$('desc').value=t[mode]||t.clear;sync();toast('Opening note updated')}
 }
-function saveDraft(){toast('Draft saved locally')}
-function sendDocument(){state.status='sent';toast('Proposal sent');show('client')}
-function toast(msg){
-  const t=document.createElement('div');t.textContent=msg;
-  t.style='position:fixed;right:22px;bottom:22px;background:#101828;color:white;padding:12px 15px;border-radius:9px;font-size:12px;z-index:100;box-shadow:0 10px 30px #10182833';
-  document.body.appendChild(t);setTimeout(()=>t.remove(),1800)
-}
-function copyPublicLink(){navigator.clipboard?.writeText(location.href+'#proposal/demo');toast('Public link copied')}
-function openAccept(){document.getElementById('acceptModal').style.display='flex'}
-function closeAccept(){document.getElementById('acceptModal').style.display='none'}
-function confirmAccept(){
-  state.status='accepted';
-  closeAccept();
-  toast('Proposal accepted');
-  updateDealUI();
-}
-function confirmSignature(){
-  state.status='signed';
-  toast('Signature completed');
-  updateDealUI();
-}
-function confirmPayment(){
-  state.status='paid';
-  toast('Deposit paid');
-  updateDealUI();
-}
+function saveDraft(){sync();toast('Draft saved on this device')}
+function sendDocument(){sync();state.status='sent';localStorage.setItem('qp_status',state.status);toast('Proposal sent');show('client')}
+function toast(msg){let t=document.querySelector('.qp-toast');if(t)t.remove();t=document.createElement('div');t.className='qp-toast';t.textContent=msg;t.style='position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#101828;color:#fff;padding:12px 16px;border-radius:10px;font-size:12px;font-weight:700;z-index:300;box-shadow:0 12px 35px #10182833';document.body.appendChild(t);setTimeout(()=>t.remove(),1800)}
+async function copyPublicLink(){const link=location.href.split('#')[0]+'#proposal/demo';try{await navigator.clipboard.writeText(link);toast('Public link copied')}catch(e){const ta=document.createElement('textarea');ta.value=link;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('Public link copied')}}
+function openAccept(){if($('acceptModal'))$('acceptModal').style.display='flex'}
+function closeAccept(){if($('acceptModal'))$('acceptModal').style.display='none'}
+function confirmAccept(){state.status='accepted';localStorage.setItem('qp_status',state.status);closeAccept();toast('Proposal accepted');updateDealUI()}
+function confirmSignature(){state.status='signed';localStorage.setItem('qp_status',state.status);toast('Signature completed');updateDealUI()}
+function confirmPayment(){state.status='paid';localStorage.setItem('qp_status',state.status);toast('Deposit paid — deal won');updateDealUI()}
+function resetDeal(){state.status='viewed';localStorage.setItem('qp_status',state.status);updateDealUI();toast('Demo deal reset')}
 function updateDealUI(){
-  const order=['viewed','accepted','signed','paid'];
-  const idx=order.indexOf(state.status);
-  const steps=[['stepViewed','viewed'],['stepAccepted','accepted'],['stepSigned','signed'],['stepPaid','paid'],['stepWon','won']];
-  steps.forEach(([id,s])=>{
-    const el=document.getElementById(id); if(!el)return;
-    el.classList.remove('active','done');
-    if(state.status===s) el.classList.add('active');
-    if(order.indexOf(s)>=0 && order.indexOf(s)<idx) el.classList.add('done');
-    if(state.status==='paid' && s==='won') el.classList.add('active');
-  });
-  const action=document.getElementById('clientAction');
-  const title=document.getElementById('nextTitle');
-  const text=document.getElementById('nextText');
-  if(state.status==='viewed'||state.status==='sent'){
-    title.textContent='Ready to move forward?';
-    text.textContent='Accepting confirms the scope. The next step will be a signature and deposit.';
-    action.innerHTML='<button class="cta" onclick="openAccept()">Accept & continue</button>';
-  } else if(state.status==='accepted'){
-    title.textContent='Proposal accepted';
-    text.textContent='One quick step left: sign the agreement.';
-    action.innerHTML='<div class="signature-box"><b>Electronic signature</b><div class="muted" style="margin-top:5px">By clicking below, the customer confirms the agreement.</div><div class="signature-line">John Smith</div><button class="cta" style="margin-top:13px" onclick="confirmSignature()">Sign agreement</button></div>';
-  } else if(state.status==='signed'){
-    title.textContent='Signed — secure your start date';
-    text.textContent='The document is signed. The configured deposit is now due.';
-    action.innerHTML='<div class="payment-box"><div class="pay-title">Deposit due today</div><div class="pay-amt">$600</div><div class="muted" style="margin-top:4px">50% of the $1,200 project total.</div><button class="cta" style="margin-top:13px" onclick="confirmPayment()">Pay deposit</button></div>';
-  } else if(state.status==='paid'){
-    title.textContent='You’re all set 🎉';
-    text.textContent='The agreement is signed and the deposit is paid.';
-    action.innerHTML='<div class="success" style="display:block">✓ Deal complete — status: Won</div>';
-  }
+  const order=['viewed','accepted','signed','paid'];const idx=order.indexOf(state.status);const steps=[['stepViewed','viewed'],['stepAccepted','accepted'],['stepSigned','signed'],['stepPaid','paid'],['stepWon','won']];
+  steps.forEach(([id,s])=>{const el=$(id);if(!el)return;el.classList.remove('active','done');if(state.status===s)el.classList.add('active');if(order.indexOf(s)>=0&&order.indexOf(s)<idx)el.classList.add('done');if(state.status==='paid'&&s==='won')el.classList.add('active')});
+  const action=$('clientAction'),title=$('nextTitle'),text=$('nextText');if(!action)return;
+  if(state.status==='viewed'||state.status==='sent'){title.textContent='Ready to move forward?';text.textContent='Accepting confirms the scope. The next step will be a signature and deposit.';action.innerHTML='<button class="cta" onclick="openAccept()">Accept & continue</button>'}
+  else if(state.status==='accepted'){title.textContent='Proposal accepted';text.textContent='One quick step left: sign the agreement.';action.innerHTML='<div class="signature-box"><b>Electronic signature</b><div class="muted" style="margin-top:5px">By clicking below, the customer confirms the agreement.</div><div class="signature-line">'+(($('client')?.value)||'Client')+'</div><button class="cta" style="margin-top:13px" onclick="confirmSignature()">Sign agreement</button></div>'}
+  else if(state.status==='signed'){const total=parseFloat(String($('price')?.value||1200).replace(/[^0-9.]/g,''))||1200;const deposit=total*0.5;title.textContent='Signed — secure your start date';text.textContent='The document is signed. The configured deposit is now due.';action.innerHTML='<div class="payment-box"><div class="pay-title">Deposit due today</div><div class="pay-amt">$'+deposit.toLocaleString(undefined,{maximumFractionDigits:2})+'</div><div class="muted" style="margin-top:4px">50% of the $'+total.toLocaleString(undefined,{maximumFractionDigits:2})+' project total.</div><button class="cta" style="margin-top:13px" onclick="confirmPayment()">Pay deposit</button></div>'}
+  else {title.textContent='You’re all set 🎉';text.textContent='The agreement is signed and the deposit is paid.';action.innerHTML='<div class="success" style="display:block">✓ Deal complete — status: Won</div><button class="ghost" style="margin-top:10px;width:100%" onclick="resetDeal()">Reset demo flow</button>'}
 }
-['client','project','desc','included','timeline','price'].forEach(id=>document.getElementById(id).addEventListener('input',sync));
-sync();updateDealUI();
+function applyTemplate(name){
+  const data={
+    'Minimal proposal':{doctype:'Sales proposal',desc:'A focused proposal with a clear scope, practical timeline and straightforward next step.'},
+    'Studio proposal':{doctype:'Sales proposal',desc:'A thoughtful project plan designed to make the value, process and outcome easy to understand.'},
+    'Executive quote':{doctype:'Quote',desc:'A concise commercial quote with clear deliverables, investment and approval flow.'},
+    'Service package':{doctype:'Statement of work',desc:'A friendly, structured service package with clear deliverables and a simple path to start.'}
+  }[name]||{};
+  show('builder');if(data.doctype&&$('doctype'))$('doctype').value=data.doctype;if(data.desc&&$('desc'))$('desc').value=data.desc;sync();toast(name+' loaded')
+}
+function initTemplates(){document.querySelectorAll('.template[data-template]').forEach(card=>{card.addEventListener('click',()=>applyTemplate(card.dataset.template));card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();applyTemplate(card.dataset.template)}})})}
+function initDocuments(){
+  const toolbar=document.querySelector('#documents .toolbar');
+  if(!toolbar)return;
+  const input=toolbar.querySelector('input'), selects=toolbar.querySelectorAll('select'), type=selects[0], status=selects[1], sortBtn=$('sortDocuments'), empty=$('documentsEmpty');
+  let descending=true;
+  function filter(){
+    const q=(input?.value||'').toLowerCase().trim(),ty=type?.value||'All types',st=status?.value||'All statuses';
+    const rows=[...document.querySelectorAll('.doc-row')];
+    rows.forEach(r=>{const hay=(r.dataset.name+' '+r.dataset.client+' '+r.dataset.type).toLowerCase();const okQ=!q||hay.includes(q),okT=ty==='All types'||r.dataset.type===ty,okS=st==='All statuses'||r.dataset.status===st;r.style.display=okQ&&okT&&okS?'grid':'none'});
+    if(empty)empty.style.display=rows.some(r=>r.style.display!=='none')?'none':'block';
+  }
+  [input,type,status].forEach(x=>x&&x.addEventListener('input',filter));
+  [type,status].forEach(x=>x&&x.addEventListener('change',filter));
+  sortBtn?.addEventListener('click',()=>{
+    const table=document.querySelector('#documents .table');
+    const rows=[...table.querySelectorAll('.doc-row')];
+    rows.reverse(); rows.forEach(r=>table.appendChild(r));
+    descending=!descending;sortBtn.textContent=descending?'Newest ↓':'Oldest ↑';sortBtn.classList.toggle('is-desc',!descending);filter();
+  });
+  document.querySelectorAll('.doc-row').forEach(r=>r.addEventListener('click',e=>{if(e.target.closest('button'))return;show('client')}));
+  filter();
+}
+function initBuilder(){
+  const tabs=[...document.querySelectorAll('.tabs [data-tab]')], panels=[...document.querySelectorAll('.builder-panel[data-panel]')];
+  tabs.forEach(btn=>btn.addEventListener('click',()=>{const tab=btn.dataset.tab;tabs.forEach(x=>x.classList.toggle('active',x===btn));panels.forEach(p=>p.classList.toggle('active',p.dataset.panel===tab));}));
+  document.querySelectorAll('[data-builder-section]').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('[data-builder-section]').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
+    const name=btn.dataset.builderSection;
+    if(name==='content'){tabs.find(x=>x.dataset.tab==='content')?.click();return;}
+    if(name==='settings'){tabs.find(x=>x.dataset.tab==='design')?.click();return;}
+    toast(name.charAt(0).toUpperCase()+name.slice(1)+' settings ready');
+  }));
+  document.querySelectorAll('[data-insert]').forEach(btn=>btn.addEventListener('click',()=>{
+    const name=btn.dataset.insert;
+    if(name==='Text'&&$('desc')){$('desc').focus();$('desc').value += ($('desc').value?'\n\n':'')+'Add your client-facing text here.';sync();toast('Text block added');return;}
+    if(name==='Pricing table'){document.querySelector('.quote')?.scrollIntoView({behavior:'smooth',block:'center'});toast('Pricing table selected');return;}
+    toast(name+' block selected — ready to customize');
+  }));
+  document.querySelectorAll('.swatch').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.documentElement.style.setProperty('--blue',btn.dataset.color);document.documentElement.style.setProperty('--blue-dark',btn.dataset.color);document.querySelectorAll('.primary,.cta').forEach(x=>x.style.backgroundColor=btn.dataset.color);toast('Accent color updated')}));
+  ['client','project','desc','included','timeline','price','clientEmail','paymentTerms'].forEach(id=>$(id)?.addEventListener('input',sync));
+  ['paymentTerms'].forEach(id=>$(id)?.addEventListener('change',sync));
+}
+function initClicks(){
+  document.querySelectorAll('.stage').forEach(s=>{s.classList.add('clickable');s.addEventListener('click',()=>show('documents'))});
+  document.querySelectorAll('.att').forEach(s=>{s.classList.add('clickable');s.addEventListener('click',()=>show('documents'))});
+  document.querySelectorAll('.act').forEach(s=>{s.classList.add('clickable');s.addEventListener('click',()=>show('activity'))});
+  document.querySelectorAll('.event').forEach(s=>{s.classList.add('clickable');s.addEventListener('click',()=>toast('Activity event opened'))});
+  document.querySelectorAll('.stat').forEach((s,i)=>s.addEventListener('click',()=>{if(i===0)show('documents');else if(i===2||i===3)show('analytics');else toast('Revenue metric selected')}));
+}
+function saveSettings(){const vals=[...document.querySelectorAll('#settings input,#settings select')].map(x=>x.value);localStorage.setItem('qp_settings',JSON.stringify(vals));toast('Settings saved')}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeAccept();toggleDrawer(false)}});
+$('acceptModal')?.addEventListener('click',e=>{if(e.target.id==='acceptModal')closeAccept()});
+restoreDraft();initTemplates();initDocuments();initBuilder();initClicks();updateDealUI();
 </script>
 <script>document.documentElement.classList.add("qp-ready");</script></body>
 </html>
